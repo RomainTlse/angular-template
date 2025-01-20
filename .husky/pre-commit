@@ -2,5 +2,6 @@
 . "$(dirname "$0")/_/husky.sh"
 
 npm run test:hook
+npm run cy:hook
 npm run lint:hook
 npx --no-install prettier --write .

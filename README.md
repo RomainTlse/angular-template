@@ -167,7 +167,7 @@ Pour faire une release :
   "scripts": {
     "test:hook": "ng test  --code-coverage --watch=false --browsers=ChromeHeadless",
   },
-  ```
+```
 
 `.husky/pre-commit`
 
@@ -178,7 +178,45 @@ Pour faire une release :
 npm run test:hook
 npm run lint:hook
 npx --no-install prettier --write .
+```
 
+## Test Cypress
+
+`npm install cypress --save-dev`
+`npm install start-server-and-test -D ng add @cypress/schematic`
+`npx cypress open`
+
+`package.json`
+
+```
+"scripts": {
+  "cy:run": "cypress run --browser chrome",
+  "cy:serve": "ng serve",
+  "cy:hook": "start-server-and-test cy:serve http://localhost:4200 cy:run",
+}
+```
+
+`cypress/e2e/app/app.cy.ts`
+
+```
+describe('My first test', () => {
+  it('Access Page', () => {
+    cy.visit('http://localhost:4200');
+    cy.contains('Hello');
+  });
+});
+```
+
+`.husky/pre-commit`
+
+```
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npm run test:hook
+npm run cy:hook
+npm run lint:hook
+npx --no-install prettier --write .
 ```
 
 ## Development server
