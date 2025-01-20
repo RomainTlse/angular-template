@@ -219,6 +219,46 @@ npm run lint:hook
 npx --no-install prettier --write .
 ```
 
+## CI
+
+`.github/workflows/ci.yml`
+
+```yaml
+name: CI
+on: push
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ⬇️
+        uses: actions/checkout@v2
+      - name: Setup 🔧
+        uses: actions/setup-node@v2
+        with:
+          node-version: 22.13.0
+          cache: 'npm'
+      - name: Install ⚙️
+        run: npm ci
+      - name: Build 🛠
+        run: npm run build:ci
+      - name: Test Unitaire ✅
+        run: npm run test:ci
+      - name: Test e2e 🧪
+        run: npm run cy:ci
+```
+
+`package.json`
+
+```json
+"script" :{
+"build:ci": "ng build --aot true --configuration=production",
+"test:ci": "ng test  --code-coverage --watch=false --browsers=ChromeHeadless",
+"cy:ci": "start-server-and-test cy:serve http://localhost:4200 cy:run",
+}
+
+
+```
+
 ## Development server
 
 To start a local development server, run:
