@@ -2,6 +2,108 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.2.
 
+## Quality Code
+
+`ng add @angular-eslint/schematics`
+`npm install eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import --save-dev`
+`npx eslint --init`
+`npm install prettier eslint-config-prettier eslint-plugin-prettier --save-dev`
+
+`.prettierrc`
+
+```
+{
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "printWidth": 80
+}
+```
+
+`npm install --save-dev semantic-release @semantic-release/changelog @semantic-release/git @semantic-release/commit-analyzer @semantic-release/release-notes-generator`
+
+`.releaserc`
+
+```
+{
+  "branches": ["main"],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    "@semantic-release/git"
+  ]
+}
+```
+
+`npm install --save-dev @commitlint/cli`
+`npm install --save-dev @commitlint/config-conventional`
+
+`echo "export default { extends: ['@commitlint/config-conventional'] };" > commitlint.config.js`
+
+`npm install --save-dev commitizen cz-customizable`
+
+`package.json`
+
+```
+"config": {
+  "commitizen": {
+    "path": "./node_modules/cz-customizable"
+  }
+}
+```
+
+`.cz-config.js`
+
+```
+module.exports = {
+  types: [
+    { value: 'feat', name: 'feat:     Une nouvelle fonctionnalité' },
+    { value: 'fix', name: 'fix:      Correction d\'un bug' },
+    { value: 'docs', name: 'docs:     Documentation' },
+    { value: 'style', name: 'style:    Modifications de formatage (pas de code fonctionnel)' },
+    { value: 'refactor', name: 'refactor: Refactoring de code' },
+    { value: 'perf', name: 'perf:     Amélioration des performances' },
+    { value: 'test', name: 'test:     Ajout de tests' },
+    { value: 'chore', name: 'chore:    Modifications mineures (outils, configuration)' },
+    { value: 'revert', name: 'revert:   Revertir un commit précédent' }
+  ],
+  messages: {
+    type: "Quel type de changement avez-vous effectué ?",
+    subject: "Quelle est la portée de votre changement ?"
+  }
+};
+```
+
+`npm install husky --save-dev`
+
+`.husky/commit-msg`
+
+```
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npx --no-install commitlint --edit $1
+```
+
+`.husky/pre-commit`
+
+```
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npx --no-install prettier --write .
+```
+
+`chmod +x .husky/*`
+
+pour commiter :
+
+`npx git-cz`
+
+Pour faire une release :
+
+`npx semantic-release`
+
 ## Development server
 
 To start a local development server, run:
