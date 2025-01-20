@@ -145,7 +145,7 @@ npx --no-install commitlint --edit $1
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-lint:hook
+npm run lint:hook
 npx --no-install prettier --write .
 ```
 
@@ -158,6 +158,28 @@ pour commiter :
 Pour faire une release :
 
 `npx semantic-release`
+
+## Test Unitaire
+
+`package.json`
+
+```
+  "scripts": {
+    "test:hook": "ng test  --code-coverage --watch=false --browsers=ChromeHeadless",
+  },
+  ```
+
+`.husky/pre-commit`
+
+```
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npm run test:hook
+npm run lint:hook
+npx --no-install prettier --write .
+
+```
 
 ## Development server
 
