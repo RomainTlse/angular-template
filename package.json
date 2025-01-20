@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "lint:hook": "ng lint --quiet --fix"
   },
   "config": {
     "commitizen": {
@@ -46,9 +47,7 @@
     "commitizen": "^4.3.1",
     "cz-customizable": "^7.4.0",
     "eslint": "^9.18.0",
-    "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-prettier": "^5.2.3",
     "globals": "^15.14.0",
     "husky": "^9.1.7",
     "jasmine-core": "~5.5.0",

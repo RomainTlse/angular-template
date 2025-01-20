@@ -19,5 +19,8 @@ module.exports = {
   messages: {
     type: 'Quel type de changement avez-vous effectué ?',
     subject: 'Quelle est la portée de votre changement ?',
+    body: 'Donne plus de détails sur ce commit (facultatif)',
   },
+  format: '{type}: {subject}',
+  allowCustomScopes: false,
 };

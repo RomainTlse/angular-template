@@ -7,7 +7,55 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 `ng add @angular-eslint/schematics`
 `npm install eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import --save-dev`
 `npx eslint --init`
-`npm install prettier eslint-config-prettier eslint-plugin-prettier --save-dev`
+
+`eslint.config.js`
+
+```
+// @ts-check
+const eslint = require('@eslint/js');
+const tseslint = require('typescript-eslint');
+const angular = require('angular-eslint');
+
+module.exports = tseslint.config(
+  {
+    files: ['**/*.ts'],
+    extends: [
+      eslint.configs.recommended,
+      ...tseslint.configs.recommended,
+      ...tseslint.configs.stylistic,
+      ...angular.configs.tsRecommended,
+    ],
+    processor: angular.processInlineTemplates,
+    rules: {
+      '@angular-eslint/directive-selector': [
+        'error',
+        {
+          type: 'attribute',
+          prefix: 'app',
+          style: 'camelCase',
+        },
+      ],
+      '@angular-eslint/component-selector': [
+        'error',
+        {
+          type: 'element',
+          prefix: 'app',
+          style: 'kebab-case',
+        },
+      ],
+    },
+  },
+  {
+    files: ['**/*.html'],
+    extends: [
+      ...angular.configs.templateRecommended,
+      ...angular.configs.templateAccessibility,
+    ],
+  }
+);
+```
+
+`npm install prettier --save-dev`
 
 `.prettierrc`
 
@@ -17,6 +65,12 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
   "trailingComma": "es5",
   "printWidth": 80
 }
+```
+
+`package.json`
+
+```
+    "lint:hook": "ng lint --quiet --fix",
 ```
 
 `npm install --save-dev semantic-release @semantic-release/changelog @semantic-release/git @semantic-release/commit-analyzer @semantic-release/release-notes-generator`
@@ -91,6 +145,7 @@ npx --no-install commitlint --edit $1
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+lint:hook
 npx --no-install prettier --write .
 ```
 
