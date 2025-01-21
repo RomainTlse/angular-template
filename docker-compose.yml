@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  angular-template:
+    build: .
+    ports:
+      - "80:80"
