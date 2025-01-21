@@ -358,6 +358,118 @@ export class AppComponent {
 
 ```
 
+## i18n
+
+`npm install @ngx-translate/core @ngx-translate/http-loader @colsen1991/ngx-translate-extract-marker`
+
+```typescript
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  provideZoneChangeDetection,
+} from '@angular/core';
+import {provideRouter} from '@angular/router';
+
+import {routes} from './app.routes';
+import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
+import {HttpClient, provideHttpClient} from '@angular/common/http';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
+const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (
+  http: HttpClient
+) => new TranslateHttpLoader(http, './i18n/', '.json');
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZoneChangeDetection({eventCoalescing: true}),
+    provideRouter(routes),
+    provideAnimationsAsync(),
+    provideHttpClient(),
+    importProvidersFrom([
+      TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useFactory: httpLoaderFactory,
+          deps: [HttpClient],
+        },
+      }),
+    ]),
+  ],
+};
+
+```
+
+`app.component.ts`
+
+```typescript
+import {Component} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
+import {MatSlideToggle} from '@angular/material/slide-toggle';
+import {ThemeService} from './core/ui/services/theme.service';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {FormsModule} from '@angular/forms';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, MatSlideToggle, TranslateModule, FormsModule],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.sass',
+})
+export class AppComponent {
+  title = 'angular-template';
+  isDarkTheme = false;
+  currentLang: string;
+
+  constructor(
+    public themeService: ThemeService,
+    private translate: TranslateService
+  ) {
+    this.isDarkTheme = this.themeService.getThemeInLocalStorage() === 'dark';
+    this.currentLang = 'fr'; // Langue actuelle
+    this.translate.addLangs(['fr', 'en']);
+    this.translate.setDefaultLang('fr');
+    this.translate.use('fr');
+  }
+
+  // Fonction pour changer la langue
+  switchLanguage(language: string): void {
+    this.translate.use(language); // Utiliser la langue sélectionnée
+    this.currentLang = language; // Mettre à jour la langue actuelle
+  }
+}
+
+```
+
+`app.component.html`
+
+```html
+
+<div class="theme-toggle">
+  <mat-slide-toggle
+    (change)="themeService.toogleTheme()"
+    [checked]="isDarkTheme">
+    Activer/Désactiver le thème sombre
+  </mat-slide-toggle>
+</div>
+<label for="language-switch">Langue :</label>
+<select (change)="switchLanguage(currentLang)" [(ngModel)]="currentLang" id="language-switch">
+  <option value="en">English</option>
+  <option value="fr">Français</option>
+</select>
+
+<h1>{{ 'hello' | translate }}, {{ title }}</h1>
+
+<router-outlet/>
+
+```
+
+## Commit
+
+```bash
+npx git-cz
+```
+
 ## Development server
 
 To start a local development server, run:
