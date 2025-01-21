@@ -255,7 +255,106 @@ jobs:
 "test:ci": "ng test  --code-coverage --watch=false --browsers=ChromeHeadless",
 "cy:ci": "start-server-and-test cy:serve http://localhost:4200 cy:run",
 }
+```
 
+## Material
+
+`ng add @angular/material`
+
+`ng g s core/ui/services/theme`
+
+```typescript
+import {Injectable} from '@angular/core';
+
+export type Theme = 'light' | 'dark';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ThemeService {
+  private currentTheme: Theme = 'light'; // Default theme
+  constructor() {
+    this.loadTheme();
+  }
+
+  toogleTheme() {
+    if (this.currentTheme === 'dark') {
+      this.setTheme('light');
+    } else {
+      this.setTheme('dark');
+    }
+  }
+
+  // Function to apply a theme
+  setTheme(theme: Theme): void {
+    this.currentTheme = theme;
+    const htmlElement = document.documentElement;
+
+    if (theme === 'dark') {
+      htmlElement.classList.add('dark-mode');
+    } else {
+      htmlElement.classList.remove('dark-mode');
+    }
+
+    // Saving the theme to localStorage
+    this.setThemeInLocalStorage(theme);
+  }
+
+  setThemeInLocalStorage(theme: Theme): void {
+    localStorage.setItem('theme', theme);
+  }
+
+  getThemeInLocalStorage(): Theme {
+    return (localStorage.getItem('theme') as Theme) ?? 'light';
+  }
+
+  // Load saved theme from localStorage
+  loadTheme(): void {
+    this.setTheme(this.getThemeInLocalStorage());
+  }
+}
+
+```
+
+`src/app/app.component.html`
+
+```html
+
+<div class="theme-toggle">
+  <mat-slide-toggle
+    (change)="themeService.toogleTheme()"
+    [checked]="isDarkTheme">
+    Activer/Désactiver le thème sombre
+  </mat-slide-toggle>
+</div>
+<h1>Hello, {{ title }}</h1>
+
+<router-outlet/>
+
+```
+
+`src/app/app.component.ts`
+
+```typescript
+import {Component} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
+import {MatSlideToggle} from '@angular/material/slide-toggle';
+import {ThemeService} from './core/ui/services/theme.service';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, MatSlideToggle],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.sass',
+})
+export class AppComponent {
+  title = 'angular-template';
+  isDarkTheme = false;
+
+  constructor(public themeService: ThemeService) {
+    this.isDarkTheme = this.themeService.getThemeInLocalStorage() === 'dark';
+  }
+}
 
 ```
 
