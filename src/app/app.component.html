@@ -5,6 +5,12 @@
     Activer/Désactiver le thème sombre
   </mat-slide-toggle>
 </div>
-<h1>Hello, {{ title }}</h1>
+<label for="language-switch">Langue :</label>
+<select (change)="switchLanguage(currentLang)" [(ngModel)]="currentLang" id="language-switch">
+  <option value="en">English</option>
+  <option value="fr">Français</option>
+</select>
+
+<h1>{{ 'hello' | translate }}, {{ title }}</h1>
 
 <router-outlet/>
