@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { ThemeService } from './core/ui/services/theme.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatSlideToggle, TranslateModule, FormsModule],
+  imports: [RouterOutlet, TranslateModule, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.sass',
 })
