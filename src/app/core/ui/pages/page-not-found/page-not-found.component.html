@@ -4,12 +4,10 @@
       404
     </div>
     <div class="description-error">
-      Oups, page introuvable !
+      {{ 'error.notFound.title' | translate }}
     </div>
     <div class="info-error">
-      On dirait que vous avez pris un mauvais virage… La page que vous cherchez s’est échappée, comme un chat qui refuse
-      de se laisser attraper ! 🐾
-      Pas de panique, vous pouvez retourner à l'accueil ou partir à la chasse à l’info ailleurs !
+      {{ 'error.notFound.desc' | translate }}
     </div>
     <div class="redirect-error">
       <button mat-button>{{ 'error.returnHome' | translate }}</button>

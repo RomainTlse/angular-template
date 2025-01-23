@@ -1,6 +1,13 @@
 {
   "error": {
-    "notFound": "Cette Page n'existe pas",
+    "notFound": {
+      "title": "Oups, page introuvable !",
+      "desc": "On dirait que vous avez pris un mauvais virage… La page que vous cherchez s’est échappée, comme un chat qui refuse de se laisser attraper ! \uD83D\uDC3E Pas de panique, vous pouvez retourner à l'accueil ou partir à la chasse à l’info ailleurs !"
+    },
+    "unauthorized": {
+      "title": "Oops ! Vous avez tenté d'entrer dans la zone interdite…",
+      "desc": "Désolé, vous n'avez pas les clés pour cette porte secrète ! \uD83D\uDED1 Si vous pensez que c'est une erreur, contactez notre super équipe technique, sinon… peut-être qu'un café vous aidera à repartir du bon pied ! ☕"
+    },
     "returnHome": "Retour à l'accueil"
   },
   "hello": "Bonjour"

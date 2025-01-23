@@ -1,0 +1,49 @@
+<section class="snackbars">
+  <div *ngFor="let message of messages; let i = index" [ngClass]="message.type" class="snackbar">
+    <div [ngClass]="message.type" class="snackbar--icon">
+      <div *ngIf="message.type === 'success'" class="snackbar--icon--icon">
+        <mat-icon fontIcon="check"></mat-icon>
+      </div>
+      <div *ngIf="message.type === 'error'" class="snackbar--icon--icon">
+        <mat-icon fontIcon="cancel"></mat-icon>
+      </div>
+      <div *ngIf="message.type === 'warning'" class="snackbar--icon--icon">
+        <mat-icon fontIcon="priority_high"></mat-icon>
+      </div>
+      <div *ngIf="message.type === 'info'" class="snackbar--icon--icon">
+        <mat-icon fontIcon="info"></mat-icon>
+      </div>
+
+    </div>
+    <div class="snackbar--message">
+      <span class="snackbar--message--title">{{ message.title }}</span>
+      <span class="snackbar--message--subtitle">{{ message.subtitle }}</span>
+    </div>
+    <div *ngIf="message.undoable" class="snackbar--separator"></div>
+    <div (click)="undoMessage(i)" (keydown)="onKeydown($event, 'undo', i)" *ngIf="message.undoable"
+         class="snackbar--undo"
+         tabindex="1">
+      Undo
+    </div>
+    <div (click)="closeMessage(i)" (keydown)="onKeydown($event, 'close', i)" [ngClass]="message.type"
+         class="snackbar--close"
+         tabindex="0">
+      <!-- Bouton Fermer -->
+      <mat-icon fontIcon="close"></mat-icon>
+    </div>
+
+
+    <div *ngIf="message.progress" class="snackbar--progress">
+      <mat-progress-bar
+        *ngIf="message.duration"
+        [bufferValue]="100"
+        [ngClass]="message.type"
+        [value]="message.progress"
+        class="my-custom-progress-bar"
+        mode="determinate"
+      ></mat-progress-bar>
+    </div>
+
+  </div>
+
+</section>

@@ -1,0 +1,123 @@
+@import "variables"
+
+.snackbars
+  position: absolute
+  top: 30px
+  right: 20px
+  display: flex
+  flex-direction: column
+  gap: 25px
+
+  .snackbar
+    position: relative
+    min-width: 300px
+    padding: 20px 10px 10px 10px
+    margin-bottom: 10px
+    border-radius: 10px
+    color: white
+    font-size: 16px
+    display: flex
+    flex-wrap: wrap
+    align-items: center
+    gap: 2px
+    z-index: 1000
+
+    &.success
+      background-color: $success
+
+    &.error
+      background-color: $error
+
+    &.info
+      background-color: $info
+
+    &.warning
+      background-color: $warning
+
+    .snackbar--icon
+      position: absolute
+      top: -24px
+      left: 24px
+      width: 24px
+      height: 24px
+      display: flex
+      justify-content: center
+      align-items: self-start
+      padding: 5px
+      border-radius: 50%
+      cursor: pointer
+
+      &.success
+        background-color: $success_secondary
+
+      &.error
+        background-color: $error_secondary
+
+      &.info
+        background-color: $info_secondary
+
+      &.warning
+        background-color: $warning_secondary
+
+      .mat-icon
+        font-size: 24px
+
+    .snackbar--separator
+      height: 20px
+      width: 1px
+      background: white
+      margin: 0 10px
+
+
+    .snackbar--message
+      display: flex
+      flex-direction: column
+      gap: 10px
+      flex: 10
+
+      .snackbar--message--title
+        font-weight: bold
+        font-size: 18px
+
+      .snackbar--message--subtitle
+        font-size: 12px
+
+    .snackbar--undo
+      cursor: pointer
+      flex: 2
+
+    .snackbar--close
+      position: absolute
+      right: -17px
+      top: -17px
+      width: 24px
+      height: 24px
+      display: flex
+      justify-content: center
+      align-items: center
+      padding: 5px
+      border-radius: 50%
+      cursor: pointer
+      color: var(--mat-sys-on-background)
+      background-color: var(--mat-sys-background)
+
+      &.success
+        border: 1px solid $success
+
+      &.error
+        border: 1px solid $error
+
+      &.info
+        border: 1px solid $info
+
+      &.warning
+        border: 1px solid $warning
+
+    .snackbar--progress
+      width: 100%
+      margin-top: 15px
+
+      .mat-progress-bar
+        margin-top: 5px
+        height: 10px
+        border-radius: 50px
