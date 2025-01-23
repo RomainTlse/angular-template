@@ -4,12 +4,10 @@
       503
     </div>
     <div class="description-error">
-      Oops ! Vous avez tenté d'entrer dans la zone interdite…
+      {{ 'error.unauthorized.title' | translate }}
     </div>
     <div class="info-error">
-      Désolé, vous n'avez pas les clés pour cette porte secrète ! 🛑
-      Si vous pensez que c'est une erreur, contactez notre super équipe technique, sinon… peut-être qu'un café vous
-      aidera à repartir du bon pied ! ☕
+      {{ 'error.unauthorized.desc' | translate }}
     </div>
     <div class="redirect-error">
       <button mat-button>{{ 'error.returnHome' | translate }}</button>

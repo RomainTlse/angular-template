@@ -261,6 +261,8 @@ jobs:
 
 `ng add @angular/material`
 
+https://themes.angular-material.dev/
+
 `ng g s core/ui/services/theme`
 
 ```typescript
@@ -696,6 +698,52 @@ export const httpErrorInterceptor: HttpInterceptorFn = (req, next) => {
 
 `ng g c core/ui/pages/page-not-found`
 `ng g c core/ui/pages/page-unauthorised`
+
+## Message
+
+`ng g s core/ui/services/message`
+
+```typescript
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
+
+export type MessageType = 'success' | 'error' | 'info' | 'warning';
+
+export interface Message {
+  message: string;
+  type: MessageType;
+  duration?: number; // Durée de l'affichage du message, en millisecondes
+}
+
+@Injectable({
+  providedIn: 'root',
+})
+export class MessageService {
+  private MessagesSubject = new Subject<Message>();
+  public Messages$ = this.MessagesSubject.asObservable(); // Observable des Messages
+
+  constructor() {
+  }
+
+  showMessage(
+    message: string,
+    type: MessageType,
+    duration: number = 3000
+  ): void {
+    const Message: Message = {message, type, duration};
+    this.MessagesSubject.next(Message); // Publier la Message
+    // Supprimer la Message après la durée spécifiée
+    setTimeout(() => this.clearMessage(), duration);
+  }
+
+  private clearMessage(): void {
+    this.MessagesSubject.next(null as any); // Effacer la Message après la durée
+  }
+}
+
+```
+
+`ng g c core/ui/components/message`
 
 ## Commit
 
