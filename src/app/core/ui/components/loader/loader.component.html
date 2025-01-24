@@ -1,0 +1,56 @@
+<div *ngIf="show" class="loader-container">
+  <!-- Matrix rain background -->
+  <div #matrix class="matrix-bg"></div>
+
+  <!-- Rotating hexagon container -->
+  <div class="hexagon-container">
+    <div class="hexagon"></div>
+  </div>
+
+  <!-- Hologram effect -->
+  <div class="hologram"></div>
+
+  <div class="loader-wrapper">
+    <!-- Data streams -->
+    <div class="data-stream" style="left: -100px; animation-delay: 0s;"></div>
+    <div class="data-stream" style="left: 100px; animation-delay: 1s;"></div>
+    <div class="data-stream" style="right: -100px; animation-delay: 0.5s;"></div>
+
+    <!-- Status text -->
+    <div class="status-text status-left">
+      > INITIALIZING SYSTEMS<br>
+      > SCANNING NETWORK<br>
+      > ANALYZING DATA<br>
+      > QUANTUM SYNC: ACTIVE
+    </div>
+
+    <div class="status-text status-right">
+      STATUS: PROCESSING<br>
+      BUFFER: 87%<br>
+      UPLINK: STABLE<br>
+      SECURITY: ENCRYPTED
+    </div>
+
+    <!-- Scanner effect -->
+    <div class="scanner"></div>
+
+    <svg height="100%" style="transform: rotate(-90deg);" viewBox="0 0 100 100" width="100%">
+      <!-- Outer ring -->
+      <circle class="circle outer" cx="50" cy="50" r="45"/>
+
+      <!-- Middle ring -->
+      <circle class="circle middle" cx="50" cy="50" r="35"/>
+
+      <!-- Inner ring -->
+      <circle class="circle inner" cx="50" cy="50" r="25"/>
+
+      <!-- Additional decorative elements -->
+      <path class="circle outer" d="M10,50 L90,50" style="opacity: 0.3;"/>
+      <path class="circle outer" d="M50,10 L50,90" style="opacity: 0.3;"/>
+    </svg>
+
+    <div class="progress-text">
+      Bienvenue dans la Matrice ! Chargement...
+    </div>
+  </div>
+</div>
