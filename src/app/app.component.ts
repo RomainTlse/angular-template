@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { MessageComponent } from './core/ui/components/message/message.component';
 import { MessageService } from './core/ui/services/message.service';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { LoaderComponent } from './core/ui/components/loader/loader.component';
+import { LoaderService } from './core/ui/services/loader.service';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +17,7 @@ import { MatSlideToggle } from '@angular/material/slide-toggle';
     FormsModule,
     MessageComponent,
     MatSlideToggle,
+    LoaderComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.sass',
@@ -28,13 +31,29 @@ export class AppComponent {
   constructor(
     public themeService: ThemeService,
     private _translate: TranslateService,
-    private _messageService: MessageService
+    private _messageService: MessageService,
+    private _loaderService: LoaderService
   ) {
     this.isDarkTheme = this.themeService.getThemeInLocalStorage() === 'dark';
     this.currentLang = 'fr'; // Langue actuelle
     this._translate.addLangs(['fr', 'en']);
     this._translate.setDefaultLang('fr');
     this._translate.use('fr');
+
+    // this._router.events.subscribe((event: any) => {
+    //   if (event instanceof NavigationStart) {
+    //
+    //   } else if (event instanceof NavigationEnd) {
+    //
+    //   }
+    // });
+  }
+
+  ngOnInit() {
+    this._loaderService.show();
+    setTimeout(() => {
+      this._loaderService.hide();
+    }, 1000);
   }
 
   // Fonction pour changer la langue

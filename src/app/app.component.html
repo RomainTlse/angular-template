@@ -1,23 +1,27 @@
-<div class="theme-toggle">
-  <mat-slide-toggle
-    (change)="themeService.toogleTheme()"
-    [checked]="isDarkTheme">
-    Activer/Désactiver le thème sombre
-  </mat-slide-toggle>
-</div>
-<label for="language-switch">Langue :</label>
-<select (change)="switchLanguage(currentLang)" [(ngModel)]="currentLang" id="language-switch">
-  <option value="en">English</option>
-  <option value="fr">Français</option>
-</select>
+<main>
+  <div class="theme-toggle">
+    <mat-slide-toggle
+      (change)="themeService.toogleTheme()"
+      [checked]="isDarkTheme">
+      Activer/Désactiver le thème sombre
+    </mat-slide-toggle>
+  </div>
+  <label for="language-switch">Langue :</label>
+  <select (change)="switchLanguage(currentLang)" [(ngModel)]="currentLang" id="language-switch">
+    <option value="en">English</option>
+    <option value="fr">Français</option>
+  </select>
 
-<h1>{{ 'hello' | translate }}, {{ title }}</h1>
+  <h1>{{ 'hello' | translate }}, {{ title }}</h1>
 
-<button (click)="showSuccess()">Afficher Succès</button>
-<button (click)="showError()">Afficher Erreur</button>
-<button (click)="showInfo()">Afficher Information</button>
-<button (click)="showWarning()">Afficher Avertissement</button>
+  <button (click)="showSuccess()">Afficher Succès</button>
+  <button (click)="showError()">Afficher Erreur</button>
+  <button (click)="showInfo()">Afficher Information</button>
+  <button (click)="showWarning()">Afficher Avertissement</button>
 
-<app-message></app-message>
+  <app-loader></app-loader>
+  <app-message></app-message>
 
-<router-outlet/>
+  <router-outlet/>
+
+</main>

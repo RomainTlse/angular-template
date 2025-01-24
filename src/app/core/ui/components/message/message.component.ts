@@ -1,9 +1,10 @@
-import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Message, MessageService } from '../../services/message.service';
+import { MessageService } from '../../services/message.service';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatIcon } from '@angular/material/icon';
+import { Message } from '../../interfaces/message';
 
 @Component({
   selector: 'app-message',
@@ -13,15 +14,12 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class MessageComponent implements OnInit, OnDestroy {
   messages: Message[] = [];
-  @HostBinding('class.dark-mode') isDarkMode = false;
   protected readonly Date = Date;
   private messageSubscription?: Subscription;
 
   constructor(private _messageService: MessageService) {}
 
   ngOnInit(): void {
-    this.isDarkMode = document.documentElement.classList.contains('dark-mode');
-    console.log(this.isDarkMode);
     this.messageSubscription = this._messageService.messages$.subscribe(
       (message) => {
         if (message) {
@@ -42,9 +40,9 @@ export class MessageComponent implements OnInit, OnDestroy {
               }
             }, 100);
           }
-          // setTimeout(() => {
-          //   this.messages.shift(); // Retirer la message après la durée
-          // }, message.duration);
+          setTimeout(() => {
+            this.messages.shift(); // Retirer la message après la durée
+          }, message.duration);
         }
       }
     );
