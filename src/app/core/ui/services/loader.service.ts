@@ -13,13 +13,13 @@ export class LoaderService {
    * show the loader
    */
   public show(): void {
-    this._loader.next(<Loader>{ show: true });
+    this._loader.next(({ show: true } as Loader));
   }
 
   /**
    * hide the loader
    */
   public hide(): void {
-    this._loader.next(<Loader>{ show: false });
+    this._loader.next(({ show: false } as Loader));
   }
 }

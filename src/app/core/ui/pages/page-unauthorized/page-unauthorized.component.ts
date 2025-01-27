@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { MatButton } from '@angular/material/button';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Button } from 'primeng/button';
 
 @Component({
   selector: 'app-page-unauthorized',
-  imports: [MatButton, TranslatePipe],
+  imports: [TranslatePipe, Button],
   templateUrl: './page-unauthorized.component.html',
   styleUrl: './page-unauthorized.component.sass',
 })

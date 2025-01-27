@@ -1,14 +1,14 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MessageService } from '../../services/message.service';
-import { NgClass, NgForOf, NgIf } from '@angular/common';
-import { MatProgressBar } from '@angular/material/progress-bar';
-import { MatIcon } from '@angular/material/icon';
 import { Message } from '../../interfaces/message';
+import { NgClass } from '@angular/common';
+import { ProgressBar } from 'primeng/progressbar';
+import { $dt } from '@primeng/themes';
 
 @Component({
   selector: 'app-message',
-  imports: [NgClass, NgForOf, NgIf, MatProgressBar, MatIcon],
+  imports: [NgClass, ProgressBar],
   templateUrl: './message.component.html',
   styleUrl: './message.component.sass',
 })
@@ -17,32 +17,17 @@ export class MessageComponent implements OnInit, OnDestroy {
   protected readonly Date = Date;
   private messageSubscription?: Subscription;
 
-  constructor(private _messageService: MessageService) {}
+  private _messageService = inject(MessageService);
 
   ngOnInit(): void {
     this.messageSubscription = this._messageService.messages$.subscribe(
       (message) => {
         if (message) {
+          console.log('message', message);
           this.messages.push(message); // Ajouter la message à la liste
-          if (message.duration) {
-            // Initialisation du timer pour mettre à jour la barre de progression
-            const startTime = Date.now();
-            message.progress = 0; // Définir la valeur de progression initiale à 0
-
-            // Mettre à jour la progression toutes les 100ms
-            const progressInterval = setInterval(() => {
-              const elapsedTime = Date.now() - startTime;
-              message.progress = (elapsedTime / message.duration!) * 100;
-
-              // Si la durée de la message est dépassée, on arrête le timer
-              if (elapsedTime >= message.duration!) {
-                clearInterval(progressInterval);
-              }
-            }, 100);
-          }
           setTimeout(() => {
             this.messages.shift(); // Retirer la message après la durée
-          }, message.duration);
+          }, message.duration! + 1100);
         }
       }
     );
@@ -54,12 +39,30 @@ export class MessageComponent implements OnInit, OnDestroy {
     }
   }
 
+  colorProgressBar(message: Message) {
+    switch (message.type) {
+      case 'success':
+        return $dt('emerald.900').value;
+
+      case 'error':
+        return $dt('red.800').value;
+
+      case 'info':
+        return $dt('cyan.900').value;
+
+      case 'warning':
+        return $dt('orange.900').value;
+
+      default:
+        return $dt('emerald.900').value;
+    }
+  }
+
   // Calculer la largeur de la barre de progression
   getProgressBarWidth(message: Message): number {
-    if (message && message.startTime && message.duration) {
-      const timeElapsed = Date.now() - message.startTime;
-      const progress = (timeElapsed / message.duration) * 100;
-      return Math.min(progress, 100); // S'assurer que la largeur ne dépasse pas 100%
+    if (message.duration) {
+      const timeElapsed = Date.now() - message.startTime!;
+      return (timeElapsed / message.duration!) * 100;
     }
     return 0; // Si aucune donnée n'est disponible, la barre reste vide
   }
