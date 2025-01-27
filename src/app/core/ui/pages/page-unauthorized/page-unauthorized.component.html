@@ -1,16 +1,16 @@
 <main>
   <div class="h-v-c flex-col">
-    <div class="title-error">
+    <div class="title-error text-8xl text-rose-950">
       503
     </div>
-    <div class="description-error">
+    <div class="description-error text-5xl text-rose-700">
       {{ 'error.unauthorized.title' | translate }}
     </div>
-    <div class="info-error">
+    <div class="info-error text-2xl">
       {{ 'error.unauthorized.desc' | translate }}
     </div>
     <div class="redirect-error">
-      <button mat-button>{{ 'error.returnHome' | translate }}</button>
+      <p-button label="{{ 'error.returnHome' | translate }}"/>
     </div>
   </div>
 </main>

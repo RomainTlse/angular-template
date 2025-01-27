@@ -257,213 +257,94 @@ jobs:
 }
 ```
 
-## Material
-
-`ng add @angular/material`
-
-https://themes.angular-material.dev/
-
-`ng g s core/ui/services/theme`
-
-```typescript
-import {Injectable} from '@angular/core';
-
-export type Theme = 'light' | 'dark';
-
-@Injectable({
-  providedIn: 'root',
-})
-export class ThemeService {
-  private currentTheme: Theme = 'light'; // Default theme
-  constructor() {
-    this.loadTheme();
-  }
-
-  toogleTheme() {
-    if (this.currentTheme === 'dark') {
-      this.setTheme('light');
-    } else {
-      this.setTheme('dark');
-    }
-  }
-
-  // Function to apply a theme
-  setTheme(theme: Theme): void {
-    this.currentTheme = theme;
-    const htmlElement = document.documentElement;
-
-    if (theme === 'dark') {
-      htmlElement.classList.add('dark-mode');
-    } else {
-      htmlElement.classList.remove('dark-mode');
-    }
-
-    // Saving the theme to localStorage
-    this.setThemeInLocalStorage(theme);
-  }
-
-  setThemeInLocalStorage(theme: Theme): void {
-    localStorage.setItem('theme', theme);
-  }
-
-  getThemeInLocalStorage(): Theme {
-    return (localStorage.getItem('theme') as Theme) ?? 'light';
-  }
-
-  // Load saved theme from localStorage
-  loadTheme(): void {
-    this.setTheme(this.getThemeInLocalStorage());
-  }
-}
-
-```
-
-`src/app/app.component.html`
-
-```html
-
-<div class="theme-toggle">
-  <mat-slide-toggle
-    (change)="themeService.toogleTheme()"
-    [checked]="isDarkTheme">
-    Activer/Désactiver le thème sombre
-  </mat-slide-toggle>
-</div>
-<h1>Hello, {{ title }}</h1>
-
-<router-outlet/>
-
-```
-
-`src/app/app.component.ts`
-
-```typescript
-import {Component} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
-import {MatSlideToggle} from '@angular/material/slide-toggle';
-import {ThemeService} from './core/ui/services/theme.service';
-
-@Component({
-  selector: 'app-root',
-  imports: [RouterOutlet, MatSlideToggle],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.sass',
-})
-export class AppComponent {
-  title = 'angular-template';
-  isDarkTheme = false;
-
-  constructor(public themeService: ThemeService) {
-    this.isDarkTheme = this.themeService.getThemeInLocalStorage() === 'dark';
-  }
-}
-
-```
-
 ## i18n
 
 `npm install @ngx-translate/core @ngx-translate/http-loader @colsen1991/ngx-translate-extract-marker`
 
+`app.config.ts`
+
 ```typescript
-import {
-  ApplicationConfig,
-  importProvidersFrom,
-  provideZoneChangeDetection,
-} from '@angular/core';
-import {provideRouter} from '@angular/router';
-
-import {routes} from './app.routes';
-import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
-import {HttpClient, provideHttpClient} from '@angular/common/http';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+...
+import {provideHttpClient} from "@angular/common/http";
+import {provideTranslateService, TranslateLoader} from "@ngx-translate/core";
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {HttpClient} from '@angular/common/http';
 
-const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (
-  http: HttpClient
-) => new TranslateHttpLoader(http, './i18n/', '.json');
+const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (http: HttpClient) =>
+  new TranslateHttpLoader(http, './i18n/', '.json');
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({eventCoalescing: true}),
-    provideRouter(routes),
-    provideAnimationsAsync(),
-    provideHttpClient(),
-    importProvidersFrom([
-      TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useFactory: httpLoaderFactory,
-          deps: [HttpClient],
-        },
-      }),
-    ]),
+    ...
+      provideHttpClient(),
+    provideTranslateService({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpLoaderFactory,
+        deps: [HttpClient],
+      },
+    })
   ],
 };
-
 ```
 
-`app.component.ts`
+`ng g s core/utils/services/language`
 
 ```typescript
-import {Component} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
-import {MatSlideToggle} from '@angular/material/slide-toggle';
-import {ThemeService} from './core/ui/services/theme.service';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {FormsModule} from '@angular/forms';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {TranslateService} from '@ngx-translate/core';
 
-@Component({
-  selector: 'app-root',
-  imports: [RouterOutlet, MatSlideToggle, TranslateModule, FormsModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.sass',
+export type Language = 'fr' | 'en';
+
+@Injectable({
+  providedIn: 'root',
 })
-export class AppComponent {
-  title = 'angular-template';
-  isDarkTheme = false;
-  currentLang: string;
+export class LanguageService {
+  private _currentLang = new BehaviorSubject<Language>('en');
+  currentLang$ = this._currentLang.asObservable();
 
-  constructor(
-    public themeService: ThemeService,
-    private translate: TranslateService
-  ) {
-    this.isDarkTheme = this.themeService.getThemeInLocalStorage() === 'dark';
-    this.currentLang = 'fr'; // Langue actuelle
-    this.translate.addLangs(['fr', 'en']);
-    this.translate.setDefaultLang('fr');
-    this.translate.use('fr');
+  constructor(private _translate: TranslateService) {
+    this._translate.addLangs(['fr', 'en']);
+    this._translate.setDefaultLang('fr');
+    const storedLang: Language =
+      (localStorage.getItem('lang') as Language) || 'fr';
+    this.loadLanguage();
   }
 
-  // Fonction pour changer la langue
-  switchLanguage(language: string): void {
-    this.translate.use(language); // Utiliser la langue sélectionnée
-    this.currentLang = language; // Mettre à jour la langue actuelle
+  loadLanguage(): void {
+    this.setLanguage(this.getLanguageInLocalStorage());
+  }
+
+  changeLanguage(lang: Language): void {
+    console.log(lang);
+    this.setLanguage(lang);
+    this.setLanguageInLocalStorage(lang);
+  }
+
+  setLanguage(lang: Language): void {
+    console.log(
+      'setLanguage',
+      lang,
+      this._translate.currentLang,
+      this._translate.defaultLang
+    );
+    this._currentLang.next(lang);
+    this._translate.use(lang);
+  }
+
+  getLanguage(): BehaviorSubject<Language> {
+    return this._currentLang;
+  }
+
+  setLanguageInLocalStorage(lang: Language): void {
+    localStorage.setItem('lang', lang);
+  }
+
+  getLanguageInLocalStorage(): Language {
+    return (localStorage.getItem('lang') as Language) ?? 'fr';
   }
 }
-
-```
-
-`app.component.html`
-
-```html
-
-<div class="theme-toggle">
-  <mat-slide-toggle
-    (change)="themeService.toogleTheme()"
-    [checked]="isDarkTheme">
-    Activer/Désactiver le thème sombre
-  </mat-slide-toggle>
-</div>
-<label for="language-switch">Langue :</label>
-<select (change)="switchLanguage(currentLang)" [(ngModel)]="currentLang" id="language-switch">
-  <option value="en">English</option>
-  <option value="fr">Français</option>
-</select>
-
-<h1>{{ 'hello' | translate }}, {{ title }}</h1>
-
-<router-outlet/>
-
 ```
 
 ## http-request service
@@ -651,6 +532,57 @@ RewriteRule ^(.*)$ /index.html?path=$1 [NC,L,QSA]
 
 `docker-compose up --build`
 
+## NgPrime
+
+`npm install primeng @primeng/themes`
+`npm install primeicons`
+`npm install -D tailwindcss postcss autoprefixer`
+`npx tailwindcss init`
+`npm i tailwindcss-primeui`
+
+`app.config.ts`
+
+```typescript
+...
+import {providePrimeNG} from 'primeng/config';
+import Aura from '@primeng/themes/aura';
+import {definePreset} from '@primeng/themes';
+
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    ...
+      providePrimeNG({
+        theme: {
+          preset: definePreset(Aura, {
+            semantic: {
+              primary: {
+                50: '{rose.50}',
+                100: '{rose.100}',
+                200: '{rose.200}',
+                300: '{rose.300}',
+                400: '{rose.400}',
+                500: '{rose.500}',
+                600: '{rose.600}',
+                700: '{rose.700}',
+                800: '{rose.800}',
+                900: '{rose.900}',
+                950: '{rose.950}',
+              },
+            },
+          }),
+        },
+      }),
+  ],
+};
+
+```
+
+## icons
+
+`npm install @ng-icons/core`
+`npm install @ng-icons/huge-icons`
+
 ## error page
 
 `ng g interceptor core/utils/interceptors/http-error`
@@ -666,16 +598,15 @@ import {inject} from '@angular/core';
 import {Router} from '@angular/router';
 
 export const httpErrorInterceptor: HttpInterceptorFn = (req, next) => {
-  const router = inject(Router); // Injecter le Router via `inject()`
+  const router = inject(Router);
 
   return next(req).pipe(
     tap((event: HttpEvent<any>) => {
       if (event instanceof HttpResponse && event.status === 503) {
-        router.navigate(['/page-unauthorized']); // Remplacez par l'URL de votre page d'erreur
+        router.navigate(['/page-unauthorized']);
       }
     }),
     catchError((error) => {
-      // Gestion d'autres erreurs si nécessaire
       console.error('Erreur HTTP:', error);
       return throwError(error);
     })
@@ -693,7 +624,7 @@ export const httpErrorInterceptor: HttpInterceptorFn = (req, next) => {
 :
   PageUnauthorizedComponent,
 }
-,
+
 ```
 
 `ng g c core/ui/pages/page-not-found`
@@ -703,7 +634,60 @@ export const httpErrorInterceptor: HttpInterceptorFn = (req, next) => {
 
 `ng g interface core/ui/interfaces/loader`
 
+```typescript
+export type MessageType = 'success' | 'error' | 'info' | 'warning';
+
+export interface Message {
+  title: string;
+  type: MessageType;
+  subtitle?: string;
+  duration?: number; // Durée de l'affichage du message, en millisecondes
+  undoable?: boolean; // Si un bouton Undo doit être affiché
+  startTime?: number; // Initialisation du startTime
+  progress?: number;
+}
+
+```
+
 `ng g s core/ui/services/message`
+
+```typescript
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
+import {Message, MessageType} from '../interfaces/message';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class MessageService {
+  private _messagesSubject = new Subject<Message | null>();
+  public messages$ = this._messagesSubject.asObservable(); // Observable des messages
+
+  showMessage(
+    title: string,
+    type: MessageType,
+    subtitle = '',
+    duration = 3000,
+    undoable = false
+  ): void {
+    const message: Message = {
+      title,
+      type,
+      subtitle,
+      duration,
+      undoable,
+      startTime: Date.now(),
+    };
+    this._messagesSubject.next(message);
+    setTimeout(() => this.clearMessage(), duration);
+  }
+
+  private clearMessage(): void {
+    this._messagesSubject.next(null);
+  }
+}
+
+```
 
 `ng g c core/ui/components/message`
 
@@ -713,9 +697,61 @@ https://codepen.io/sohrabzia/pen/XJrrgKw
 
 `ng g interface core/ui/interfaces/loader`
 
+```typescript
+export interface Loader {
+  show: boolean;
+}
+
+```
+
 `ng g s core/ui/services/loader`
 
+```typescript
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
+import {Loader} from '../interfaces/loader';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class LoaderService {
+  private _loader: Subject<Loader> = new Subject<Loader>();
+  public loaderState = this._loader.asObservable();
+
+  /**
+   * show the loader
+   */
+  public show(): void {
+    this._loader.next(<Loader>{show: true});
+  }
+
+  /**
+   * hide the loader
+   */
+  public hide(): void {
+    this._loader.next(<Loader>{show: false});
+  }
+}
+
+```
+
 `ng g c core/ui/components/loader`
+
+## Theme
+
+https://preview.themeforest.net/item/matdash-tailwind-react-admin-template/full_screen_preview/55787128?_ga=2.139668918.428557748.1737843891-2084262383.1737723792
+https://dash-tail.vercel.app/en/dashboard
+
+https://react.vristo.sbthemes.com/
+https://www.einfosoft.com/templates/admin/loraxangular/source/light/#/dashboard/main
+https://preview.themeforest.net/item/tagus-material-design-angular-admin-dashboard-template/full_screen_preview/44378496?_ga=2.253348364.428557748.1737843891-2084262383.1737723792
+https://angular.envytheme.com/tagus/contacts-list
+https://angular.envytheme.com/trinta/
+https://www.einfosoft.com/templates/admin/spire/source/light/#/dashboard/dashboard1
+https://www.einfosoft.com/templates/admin/axen/source/light/#/dashboard/main
+https://matdash-angular-main.netlify.app/dashboards/dashboard1
+
+https://handsontable.com/docs/javascript-data-grid/
 
 ## Commit
 

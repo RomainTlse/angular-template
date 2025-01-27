@@ -24,12 +24,11 @@ export class MessageService {
       undoable,
       startTime: Date.now(),
     };
-    this._messagesSubject.next(message); // Publier la message
-    // Supprimer la message après la durée spécifiée
+    this._messagesSubject.next(message);
     setTimeout(() => this.clearMessage(), duration);
   }
 
   private clearMessage(): void {
-    this._messagesSubject.next(null); // Effacer la message après la durée
+    this._messagesSubject.next(null);
   }
 }

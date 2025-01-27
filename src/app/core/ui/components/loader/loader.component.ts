@@ -2,7 +2,7 @@ import {
   Component,
   ElementRef,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation, OnInit, AfterViewInit, OnDestroy,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LoaderService } from '../../services/loader.service';
@@ -16,7 +16,7 @@ import { NgIf } from '@angular/common';
   styleUrl: './loader.component.sass',
   encapsulation: ViewEncapsulation.None,
 })
-export class LoaderComponent {
+export class LoaderComponent implements OnInit, AfterViewInit, OnDestroy {
   show = false;
   @ViewChild('matrix', { static: false }) matrixElement?: ElementRef;
   private _subscription: Subscription;

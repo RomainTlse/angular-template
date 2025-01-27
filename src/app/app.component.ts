@@ -1,44 +1,115 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, ViewChild, OnInit } from '@angular/core';
 import { ThemeService } from './core/ui/services/theme.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { MessageComponent } from './core/ui/components/message/message.component';
 import { MessageService } from './core/ui/services/message.service';
-import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { LoaderComponent } from './core/ui/components/loader/loader.component';
 import { LoaderService } from './core/ui/services/loader.service';
+import {
+  Language,
+  LanguageService,
+} from './core/utils/services/language.service';
+import { NgClass } from '@angular/common';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import {
+  hugeAdd01,
+  hugeArrowRight01,
+  hugeCalendar03,
+  hugeDashboardCircle,
+  hugeDatabase01,
+  hugeGridTable,
+  hugeGridView,
+  hugeMapsCircle01,
+  hugeMoon02,
+  hugeNotification03,
+  hugeRemove01,
+  hugeSearch02,
+  hugeSun02,
+} from '@ng-icons/huge-icons';
+import { Tooltip } from 'primeng/tooltip';
+import { RouterOutlet } from '@angular/router';
+import {
+  DialogService,
+  DynamicDialogModule,
+  DynamicDialogRef,
+} from 'primeng/dynamicdialog';
+import { SearchComponent } from './core/ui/components/modals/search/search.component';
+import { Popover } from 'primeng/popover';
+import { ShortcutComponent } from './core/ui/components/popovers/shortcut/shortcut.component';
+import { NotificationComponent } from './core/ui/components/popovers/notification/notification.component';
+import { UserComponent } from './core/ui/components/popovers/user/user.component';
+
+export type Icon = 'hugeMoon02' | 'hugeSun02';
 
 @Component({
   selector: 'app-root',
   imports: [
-    RouterOutlet,
     TranslateModule,
     FormsModule,
     MessageComponent,
-    MatSlideToggle,
     LoaderComponent,
+    NgClass,
+    NgIcon,
+    Tooltip,
+    DynamicDialogModule,
+    RouterOutlet,
+    ShortcutComponent,
+    Popover,
+    NotificationComponent,
+    UserComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.sass',
-  encapsulation: ViewEncapsulation.None,
+  viewProviders: [
+    provideIcons({
+      hugeDashboardCircle,
+      hugeMapsCircle01,
+      hugeGridTable,
+      hugeCalendar03,
+      hugeDatabase01,
+      hugeArrowRight01,
+      hugeRemove01,
+      hugeAdd01,
+      hugeSearch02,
+      hugeGridView,
+      hugeMoon02,
+      hugeSun02,
+      hugeNotification03,
+    }),
+  ],
+  providers: [DialogService],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  @ViewChild('popoverShortcut') popoverShortcut!: Popover;
+  @ViewChild('popoverNotification') popoverNotification!: Popover;
+  @ViewChild('popoverUser') popoverUser!: Popover;
+
   title = 'angular-template';
-  isDarkTheme = false;
-  currentLang: string;
+  icon: Icon = 'hugeSun02';
+  isOpenSidenav = false;
+  selectedLang: Language = 'fr'; // Langue par défaut
+  languageLogo = 'images/france.png'; // Logo par défaut
+  ref?: DynamicDialogRef;
+
+  private _dialogService = inject(DialogService);
 
   constructor(
     public themeService: ThemeService,
+    protected languageService: LanguageService,
     private _translate: TranslateService,
     private _messageService: MessageService,
     private _loaderService: LoaderService
   ) {
-    this.isDarkTheme = this.themeService.getThemeInLocalStorage() === 'dark';
-    this.currentLang = 'fr'; // Langue actuelle
-    this._translate.addLangs(['fr', 'en']);
-    this._translate.setDefaultLang('fr');
-    this._translate.use('fr');
+    this.themeService.getTheme().subscribe((isDark) => {
+      this.icon = isDark ? 'hugeSun02' : 'hugeMoon02'; // Change l'icône selon le thème
+    });
+    this.languageService.getLanguage().subscribe((lang) => {
+      console.log(lang);
+      this.selectedLang = lang;
+      this.languageLogo =
+        lang === 'fr' ? 'images/royaume-uni.png' : 'images/france.png';
+    });
 
     // this._router.events.subscribe((event: any) => {
     //   if (event instanceof NavigationStart) {
@@ -56,10 +127,27 @@ export class AppComponent {
     }, 1000);
   }
 
-  // Fonction pour changer la langue
-  switchLanguage(language: string): void {
-    this._translate.use(language); // Utiliser la langue sélectionnée
-    this.currentLang = language; // Mettre à jour la langue actuelle
+  openDialogSearch(): void {
+    this.ref = this._dialogService.open(SearchComponent, {
+      header: 'Select a Product',
+      modal: true,
+    });
+  }
+
+  toggleShortcut(event: MouseEvent) {
+    this.popoverShortcut.toggle(event);
+  }
+
+  toggleNotification(event: MouseEvent) {
+    this.popoverNotification.toggle(event);
+  }
+
+  toggleUser(event: MouseEvent) {
+    this.popoverUser.toggle(event);
+  }
+
+  toogleSidenav(): void {
+    this.isOpenSidenav = !this.isOpenSidenav;
   }
 
   showSuccess() {

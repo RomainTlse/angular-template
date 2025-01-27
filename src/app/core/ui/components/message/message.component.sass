@@ -36,13 +36,13 @@
 
     .snackbar--icon
       position: absolute
-      top: -24px
-      left: 24px
-      width: 24px
-      height: 24px
+      top: -20px
+      left: 20px
+      width: 40px
+      height: 40px
       display: flex
       justify-content: center
-      align-items: self-start
+      align-items: center
       padding: 5px
       border-radius: 50%
       cursor: pointer
@@ -88,8 +88,8 @@
 
     .snackbar--close
       position: absolute
-      right: -17px
-      top: -17px
+      right: -12px
+      top: -12px
       width: 24px
       height: 24px
       display: flex
@@ -98,8 +98,8 @@
       padding: 5px
       border-radius: 50%
       cursor: pointer
-      color: var(--mat-sys-on-background)
-      background-color: var(--mat-sys-background)
+      color: var(--p-text-color)
+      background-color: var(--p-content-background)
 
       &.success
         border: 1px solid $success
@@ -117,7 +117,14 @@
       width: 100%
       margin-top: 15px
 
-      .mat-progress-bar
-        margin-top: 5px
-        height: 10px
-        border-radius: 50px
+      &.success
+        border: 1px solid $success_secondary
+
+      &.error
+        border: 1px solid $error_secondary
+
+      &.info
+        border: 1px solid $info_secondary
+
+      &.warning
+        border: 1px solid $warning_secondary

@@ -1,4 +1,116 @@
-<main>
+<app-loader></app-loader>
+<app-message></app-message>
+
+<section class="app--container">
+  <section class="app--menu">
+    <div (click)="toogleSidenav()" [ngClass]="{'app--menu--toggle--sidenav--open': isOpenSidenav}"
+         class="app--menu--toggle">
+      <ng-icon name="hugeArrowRight01"/>
+    </div>
+    <img alt="logo" height="50" src="images/angular.svg" width="50">
+
+    <div class="app--icon active " pTooltip="Dashbord" tooltipPosition="right">
+      <ng-icon name="hugeDashboardCircle"/>
+    </div>
+    <div class="app--icon" pTooltip="Maps" tooltipPosition="right">
+      <ng-icon name="hugeMapsCircle01"/>
+    </div>
+    <div class="app--icon" pTooltip="Tableau" tooltipPosition="right">
+      <ng-icon name="hugeGridTable"/>
+    </div>
+    <div class="app--icon" pTooltip="Tableau" tooltipPosition="right">
+      <ng-icon name="hugeCalendar03"/>
+    </div>
+    <div class="app--icon" pTooltip="Tableau" tooltipPosition="right">
+      <ng-icon name="hugeDatabase01"/>
+    </div>
+
+
+  </section>
+  <section [ngClass]="{'app--sidenav--open': isOpenSidenav}" class="app--sidenav">
+    <div class="app--sidenav--title">Dashboard</div>
+    <div class="app--sidenav--subtitle">Pages</div>
+    <div class="app--sidenav--link text-sm active"><a routerLink="/dashboard">My link 1</a></div>
+    <div class="app--sidenav--link text-sm"><a routerLink="/dashboard">My link 2</a></div>
+    <div class="app--sidenav--link--father">
+      <div class="app--sidenav--link--father--title text-sm">
+        <span>My Father 1</span>
+        <ng-icon name="hugeRemove01"/>
+      </div>
+      <div class="app--sidenav--link--father--children text-gray-700 text-xs">
+        <div class="app--sidenav--link--father--children--link">
+          <div><a routerLink="/dashboard">My children link 1</a></div>
+        </div>
+        <div class="app--sidenav--link--father--children--link">
+          <div><a routerLink="/dashboard">My children link 2</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="app--sidenav--link text-sm"><a routerLink="/dashboard">My link 3</a></div>
+
+    <div class="app--sidenav--separator"></div>
+    <div class="app--sidenav--subtitle">Autre</div>
+    <div class="app--sidenav--link  text-sm"><a routerLink="/dashboard">My link 1</a></div>
+    <div class="app--sidenav--link text-sm"><a routerLink="/dashboard">My link 2</a></div>
+    <div class="app--sidenav--link--father active">
+      <div class="app--sidenav--link--father--title text-sm">
+        <span>My Father 1</span>
+        <ng-icon name="hugeAdd01"/>
+      </div>
+      <div class="app--sidenav--link--father--children text-gray-700 text-xs">
+        <div class="app--sidenav--link--father--children--link active">
+          <div><a routerLink="/dashboard">My children link 1</a></div>
+        </div>
+        <div class="app--sidenav--link--father--children--link">
+          <div><a routerLink="/dashboard">My children link 2</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="app--sidenav--link text-sm"><a routerLink="/dashboard">My link 3</a></div>
+  </section>
+  <section class="app--content">
+    <section class="app--header">
+      <div class="app--header--app">
+        <ng-icon (click)="openDialogSearch()" name="hugeSearch02"/>
+        <ng-icon (click)="toggleShortcut($event)" name="hugeGridView"/>
+
+      </div>
+      <div class="app--header--user">
+        <ng-icon (click)="themeService.toogleTheme()" name="{{icon}}"/>
+
+        <img (click)="languageService.changeLanguage(selectedLang === 'fr' ? 'en' : 'fr')" alt="language" height="24"
+             src="{{languageLogo}}" width="24">
+
+
+        <ng-icon (click)="toggleNotification($event)" name="hugeNotification03"/>
+        <div (click)="toggleUser($event)" class="app--header--user--login">
+          <img alt="user" class="app--header--login--img" src="images/garcon.png">
+        </div>
+      </div>
+    </section>
+    <main class="overflow-auto flex-1">
+      <button (click)="showSuccess()">Afficher Succès</button>
+      <button (click)="showError()">Afficher Erreur</button>
+      <button (click)="showInfo()">Afficher Information</button>
+      <button (click)="showWarning()">Afficher Avertissement</button>
+      <router-outlet/>
+      <section class="app--footer p-6">
+        COPYRIGHT © 2025
+      </section>
+    </main>
+  </section>
+</section>
+
+<p-popover #popoverShortcut>
+  <app-shortcut></app-shortcut>
+</p-popover>
+<p-popover #popoverNotification>
+  <app-notification></app-notification>
+</p-popover>
+<p-popover #popoverUser>
+  <app-user></app-user>
+</p-popover>
+<!--
   <div class="theme-toggle">
     <mat-slide-toggle
       (change)="themeService.toogleTheme()"
@@ -18,10 +130,4 @@
   <button (click)="showError()">Afficher Erreur</button>
   <button (click)="showInfo()">Afficher Information</button>
   <button (click)="showWarning()">Afficher Avertissement</button>
-
-  <app-loader></app-loader>
-  <app-message></app-message>
-
-  <router-outlet/>
-
-</main>
+-->
