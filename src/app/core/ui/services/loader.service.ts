@@ -9,17 +9,11 @@ export class LoaderService {
   private _loader: Subject<Loader> = new Subject<Loader>();
   public loaderState = this._loader.asObservable();
 
-  /**
-   * show the loader
-   */
   public show(): void {
-    this._loader.next(({ show: true } as Loader));
+    this._loader.next({ show: true } as Loader);
   }
 
-  /**
-   * hide the loader
-   */
   public hide(): void {
-    this._loader.next(({ show: false } as Loader));
+    this._loader.next({ show: false } as Loader);
   }
 }

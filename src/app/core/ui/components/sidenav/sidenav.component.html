@@ -1,0 +1,18 @@
+<section [ngClass]="{'app--sidenav--open': show, 'app--sidenav--locked': islocked}" class="app--sidenav">
+  <div (click)="toogleLocked()" [ngClass]="{'active': islocked}" class="app--sidenav--lock"></div>
+  <div class="app--sidenav--title w-">{{ menu?.name }}</div>
+  @if (menu?.menus) {
+    @for (submenu of menu?.menus; track submenu.id; let idx = $index) {
+      <app-sidenav-link [menu]="submenu" [idx]="idx"></app-sidenav-link>
+    }
+  }
+  @if (menu?.categories) {
+    @for (subcategorie of menu?.categories; track subcategorie.id) {
+      <div class="app--sidenav--subtitle">{{ subcategorie.name }}</div>
+      @for (submenu of subcategorie?.menus; track submenu.id; let idx = $index) {
+        <app-sidenav-link [menu]="submenu" [idx]="idx"></app-sidenav-link>
+      }
+      <div class="app--sidenav--separator"></div>
+    }
+  }
+</section>

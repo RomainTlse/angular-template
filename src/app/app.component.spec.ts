@@ -5,6 +5,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -18,6 +19,7 @@ describe('AppComponent', () => {
           },
         }),
       ],
+      providers: [provideHttpClient()],
     }).compileComponents();
   });
 
