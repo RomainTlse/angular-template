@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { ThemeService } from './core/ui/services/theme.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
@@ -10,24 +10,14 @@ import {
   Language,
   LanguageService,
 } from './core/utils/services/language.service';
-import { NgClass } from '@angular/common';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
-  hugeAdd01,
-  hugeArrowRight01,
-  hugeCalendar03,
-  hugeDashboardCircle,
-  hugeDatabase01,
-  hugeGridTable,
   hugeGridView,
-  hugeMapsCircle01,
   hugeMoon02,
   hugeNotification03,
-  hugeRemove01,
   hugeSearch02,
   hugeSun02,
 } from '@ng-icons/huge-icons';
-import { Tooltip } from 'primeng/tooltip';
 import { RouterOutlet } from '@angular/router';
 import {
   DialogService,
@@ -39,6 +29,7 @@ import { Popover } from 'primeng/popover';
 import { ShortcutComponent } from './core/ui/components/popovers/shortcut/shortcut.component';
 import { NotificationComponent } from './core/ui/components/popovers/notification/notification.component';
 import { UserComponent } from './core/ui/components/popovers/user/user.component';
+import { MenuComponent } from './core/ui/components/menu/menu.component';
 
 export type Icon = 'hugeMoon02' | 'hugeSun02';
 
@@ -49,28 +40,19 @@ export type Icon = 'hugeMoon02' | 'hugeSun02';
     FormsModule,
     MessageComponent,
     LoaderComponent,
-    NgClass,
     NgIcon,
-    Tooltip,
     DynamicDialogModule,
     RouterOutlet,
     ShortcutComponent,
     Popover,
     NotificationComponent,
     UserComponent,
+    MenuComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.sass',
   viewProviders: [
     provideIcons({
-      hugeDashboardCircle,
-      hugeMapsCircle01,
-      hugeGridTable,
-      hugeCalendar03,
-      hugeDatabase01,
-      hugeArrowRight01,
-      hugeRemove01,
-      hugeAdd01,
       hugeSearch02,
       hugeGridView,
       hugeMoon02,
@@ -87,7 +69,7 @@ export class AppComponent implements OnInit {
 
   title = 'angular-template';
   icon: Icon = 'hugeSun02';
-  isOpenSidenav = false;
+
   selectedLang: Language = 'fr'; // Langue par défaut
   languageLogo = 'images/france.png'; // Logo par défaut
   ref?: DynamicDialogRef;
@@ -105,7 +87,6 @@ export class AppComponent implements OnInit {
       this.icon = isDark ? 'hugeSun02' : 'hugeMoon02'; // Change l'icône selon le thème
     });
     this.languageService.getLanguage().subscribe((lang) => {
-      console.log(lang);
       this.selectedLang = lang;
       this.languageLogo =
         lang === 'fr' ? 'images/royaume-uni.png' : 'images/france.png';
@@ -144,10 +125,6 @@ export class AppComponent implements OnInit {
 
   toggleUser(event: MouseEvent) {
     this.popoverUser.toggle(event);
-  }
-
-  toogleSidenav(): void {
-    this.isOpenSidenav = !this.isOpenSidenav;
   }
 
   showSuccess() {

@@ -22,18 +22,11 @@ export class LanguageService {
   }
 
   changeLanguage(lang: Language): void {
-    console.log(lang);
     this.setLanguage(lang);
     this.setLanguageInLocalStorage(lang);
   }
 
   setLanguage(lang: Language): void {
-    console.log(
-      'setLanguage',
-      lang,
-      this._translate.currentLang,
-      this._translate.defaultLang
-    );
     this._currentLang.next(lang);
     this._translate.use(lang);
   }

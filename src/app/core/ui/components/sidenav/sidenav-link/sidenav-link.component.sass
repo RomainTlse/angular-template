@@ -1,0 +1,78 @@
+a .app--sidenav--link,
+.app--sidenav--link--father
+  padding: 0.5rem 1rem
+  font-family: "Nunito", serif
+  font-weight: 400
+  position: relative
+
+  .app--sidenav--link--father--children--open
+    visibility: visible !important
+    height: auto !important
+
+  .app--sidenav--link--father--title
+    display: flex
+    align-items: center
+    width: 100%
+
+    span
+      flex-grow: 9
+
+    mat-icon
+      flex-grow: 1
+      display: flex
+      justify-content: flex-end
+
+  .app--sidenav--link--father--children
+    visibility: hidden
+    height: 0
+    padding: 0 0 0 1rem
+    color: var(--p-text-muted-color)
+
+    a
+      &.active
+        color: var(--p-primary-active-color)
+
+        &:hover
+          color: var(--p-primary-active-color)
+
+        .app--sidenav--link--father--children--link
+          &:before
+            content: ""
+            border: 1px solid var(--p-primary-active-color)
+
+          &:hover
+            color: var(--p-primary-active-color)
+
+      .app--sidenav--link--father--children--link
+        display: flex
+
+        div
+          padding: 0.5rem
+
+        &:before
+          content: ""
+          border: 1px solid var(--p-content-border-color)
+
+        &:hover
+          color: var(--p-primary-color)
+
+  &.active
+    &:before
+      content: ""
+      position: absolute
+      top: 12px
+      border-radius: 50%
+      background-color: var(--p-primary-active-color)
+      block-size: .5rem
+      box-shadow: 0 0 0 3px var(--p-highlight-background)
+      inline-size: .5rem
+      inset-inline-start: -0.5rem
+
+a .app--sidenav--link
+  cursor: pointer
+
+  &:hover
+    color: var(--p-primary-color)
+
+  &.active
+    color: var(--p-primary-active-color)

@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Bungee+Shade&family=Jura:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Quicksand:wght@300..700&family=Sixtyfour+Convergence&display=swap')
+
+.app--menu
+  width: 5rem
+  height: 100vh
+  border-right: 1px solid var(--p-content-border-color)
+  padding-top: 12.5px
+  display: flex
+  align-items: center
+  flex-direction: column
+  gap: 0.5em
+  position: relative
+
+  .app--menu--toggle
+    position: absolute
+    padding: 3px
+    top: 13.4px
+    right: -13.4px
+    background-color: var(--p-primary-color)
+    color: var(--p-primary-contrast-color)
+    border: solid 3px var(--p-primary-contrast-color)
+    border-radius: 50%
+    display: flex
+    align-items: center
+    justify-content: center
+
+    mat-icon
+      padding: 0
+
+  a
+    border-radius: 5px
+
+    &:hover
+      color: var(--p-primary-color)
+      background-color: var(--p-highlight-background)
+
+    &.active
+      color: var(--p-primary-active-color)
+      background-color: var(--p-highlight-background)
+
+      .app--icon
+        &:hover
+          color: var(--p-primary-active-color)
+
+      &:hover
+        color: var(--p-primary-active-color)
+
+
+  .app--icon
+    padding: 15px
+    border-radius: 5px
+    display: flex
+    align-items: center
+
+    &:hover
+      color: var(--p-primary-color)
+      background-color: var(--p-highlight-background)
+
+    &.active
+      color: var(--p-primary-active-color)
+      background-color: var(--p-highlight-background)
+
+      &:hover
+        color: var(--p-primary-active-color)
