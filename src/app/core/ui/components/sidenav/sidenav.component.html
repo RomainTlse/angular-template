@@ -12,7 +12,7 @@
       @for (submenu of subcategorie?.menus; track submenu.id; let idx = $index) {
         <app-sidenav-link [menu]="submenu" [idx]="idx"></app-sidenav-link>
       }
-      <div class="app--sidenav--separator"></div>
+      <p-divider/>
     }
   }
 </section>

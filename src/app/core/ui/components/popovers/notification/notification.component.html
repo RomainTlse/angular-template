@@ -1,1 +1,38 @@
-<p>notification works!</p>
+<div class="popover--notification">
+  <div class="popover--notification--title">
+    <span> Notifications (2)</span>
+    <p-button [link]="true" label="Clear all"/>
+  </div>
+  <div class="popover--notification--list">
+    <ng-scrollbar [buttons]="false">
+      @for (notification of notifications; track notification.id) {
+        <div class="popover--notification--list--row">
+          <div class="popover--notification--icon">
+            <div class="popover--notification--icon--bg {{notification.type.classCss}}">
+              <ng-icon name="{{notification.type.icon}}"/>
+            </div>
+          </div>
+          <div class="popover--notification--infos">
+            <div class="popover--notification--desc text-lg">{{ notification.title }}</div>
+            <div class="popover--notification--subDesc text-sm">{{ notification.description }}</div>
+            <div
+              class="popover--notification--time text-xs">{{ notification.timeDifference }}
+            </div>
+          </div>
+          @if (notification.is_open) {
+            <div class="popover--notification--status">
+              <div class="popover--notification--is-open">
+              </div>
+            </div>
+          }
+
+        </div>
+        <p-divider/>
+      }
+    </ng-scrollbar>
+
+  </div>
+  <div class="popover--notification--footer">
+    <p-button [link]="true" label="Afficher les notifications"/>
+  </div>
+</div>

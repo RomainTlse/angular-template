@@ -753,6 +753,8 @@ https://matdash-angular-main.netlify.app/dashboards/dashboard1
 
 https://handsontable.com/docs/javascript-data-grid/
 
+npm i ngx-scrollbar @angular/cdk
+
 ## Commit
 
 ```bash

@@ -1,0 +1,93 @@
+[
+  {
+    "id": 1,
+    "title": "Ma Notification",
+    "description": "La description de la notification",
+    "dt_created": "02/03/2025 14:35:22",
+    "is_open": true,
+    "type": {
+      "id": 1,
+      "name": "New User",
+      "classCss": "notification--new-user",
+      "icon": "hugeUserAdd02"
+    }
+  },
+  {
+    "id": 2,
+    "title": "Ma Notification",
+    "description": "La description de la notification",
+    "dt_created": "01/04/2025 14:35:22",
+    "is_open": true,
+    "type": {
+      "id": 2,
+      "name": "Calendrier",
+      "classCss": "notification--calendrier",
+      "icon": "hugeCalendarAdd01"
+    }
+  },
+  {
+    "id": 3,
+    "title": "Ma Notification",
+    "description": "La description de la notification",
+    "dt_created": "02/04/2025 14:35:22",
+    "is_open": false,
+    "type": {
+      "id": 3,
+      "name": "Documents",
+      "classCss": "notification--document",
+      "icon": "hugeFileAdd"
+    }
+  },
+  {
+    "id": 4,
+    "title": "Ma Notification",
+    "description": "La description de la notification",
+    "dt_created": "02/04/2025 14:35:22",
+    "is_open": true,
+    "type": {
+      "id": 1,
+      "name": "New User",
+      "classCss": "notification--new-user",
+      "icon": "hugeUserAdd02"
+    }
+  },
+  {
+    "id": 5,
+    "title": "Ma Notification",
+    "description": "La description de la notification",
+    "dt_created": "02/04/2025 16:35:22",
+    "is_open": false,
+    "type": {
+      "id": 2,
+      "name": "Calendrier",
+      "classCss": "notification--calendrier",
+      "icon": "hugeCalendarAdd01"
+    }
+  },
+  {
+    "id": 6,
+    "title": "Ma Notification",
+    "description": "La description de la notification",
+    "dt_created": "02/04/2025 14:35:22",
+    "is_open": true,
+    "type": {
+      "id": 3,
+      "name": "Documents",
+      "classCss": "notification--document",
+      "icon": "hugeFileAdd"
+    }
+  },
+  {
+    "id": 7,
+    "title": "Ma Notification",
+    "description": "La description de la notification",
+    "dt_created": "02/04/2025 14:35:22",
+    "is_open": true,
+    "type": {
+      "id": 3,
+      "name": "Documents",
+      "classCss": "notification--document",
+      "icon": "hugeFileAdd"
+    }
+  }
+]

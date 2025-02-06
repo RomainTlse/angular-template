@@ -3,3 +3,35 @@
   justify-content: flex-end
   gap: 2em
   margin-top: 2em
+
+.modal--content
+  padding-top: 1.25rem
+
+  .p-inputtext
+    width: 100%
+
+  .modal--categories
+    display: flex
+    flex-wrap: wrap
+    margin-top: var(--p-overlay-modal-padding)
+    border-left: none
+
+    .modal--categorie
+      width: 50%
+      padding: var(--p-overlay-modal-padding)
+
+      .modal--categorie--title
+        display: flex
+        align-items: center
+        gap: 0.25rem
+        font-family: var(--app-category-fontFamily)
+        font-weight: var(--app-category-fontWeight)
+        font-size: var(--app-category-fontSize)
+
+      .modal--categorie--urls
+        padding: 0.5rem
+
+        .modal--categorie--link
+          font-family: var(--app-menuLink-fontFamily)
+          font-weight: var(--app-menuLink-fontWeight)
+          font-size: var(--app-menuLink-fontSize)

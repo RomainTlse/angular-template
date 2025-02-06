@@ -1,4 +1,5 @@
 @import "variables"
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Bungee+Shade&family=Jura:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Quicksand:wght@300..700&family=Sixtyfour+Convergence&display=swap')
 
 @tailwind base
 @tailwind components
@@ -11,11 +12,51 @@
   justify-content: center
   align-items: center
 
+.app--separator
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(226, 232, 240, 1) 50%, rgba(255, 255, 255, 0) 100%)
+  height: 1px
+  width: 100%
+  margin: 1.5rem 0
+
 :root
   --bg-secondary: var(--p-surface-100)
+  --text--title: var(--p-surface-600)
+  --app-category-fontFamily: "jura", serif
+  --app-category-fontWeight: bolder
+  --app-category-fontSize: larger
+  --app-menuLink-fontFamily: "Nunito", serif
+  --app-menuLink-fontWeight: 400
+  --app-menuLink-fontSize: small
+  --app-subMenuLink-fontFamily: "Nunito", serif
+  --app-subMenuLink-fontWeight: 400
+  --app-subMenuLink-fontSize: smaller
+  --app-title-fontSize: 1.25rem
+  --app-title-fontFamily: "jura", serif
+  --app-title-fontWeight: 600
+  --app-time-color: var(--p-surface-400)
+
+  --app-border-style: solid
+  --app-border-size: 1px
+  --scrollbar-track-color: var(--p-surface-100)
+  --scrollbar-thumb-color: var(--p-surface-300)
+  --scrollbar-border-radius: 5px
+  --p-badge-sm-min-width: 0.85rem !important
+  --p-badge-sm-height: 0.85rem !important
+
+  .p-dialog-title
+    font-family: var(--app-title-fontFamily)
+
+  .p-popover
+    &:before,
+    &:after
+      display: none
+
 
 .dark-mode
   --bg-secondary: var(--p-surface-800)
+  --text--title: var(--p-surface-400)
+  --scrollbar-track-color: var(--p-surface-500)
+  --scrollbar-thumb-color: var(--p-surface-700)
 
 .app--main--content
   padding: 2em

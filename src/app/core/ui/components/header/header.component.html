@@ -1,0 +1,41 @@
+<div class="app--header--content">
+  <div class="app--header--app">
+    <ng-icon (click)="openDialogSearch()" class="cursor-pointer" name="hugeSearch02"/>
+    <ng-icon (click)="toggleShortcut($event)" class="cursor-pointer" name="hugeGridView"/>
+
+  </div>
+  <div class="app--header--user">
+    <ng-icon (click)="themeService.toogleTheme()" class="cursor-pointer" name="{{icon}}"/>
+
+    <img (click)="languageService.changeLanguage(selectedLang === 'fr' ? 'en' : 'fr')" alt="language"
+         class="cursor-pointer" height="24"
+         src="{{languageLogo}}" width="24">
+
+    <div class="app--icon-badge p-1">
+      <p-badge badgeSize="small" value="2"/>
+      <ng-icon (click)="toggleNotification($event)" class="cursor-pointer" name="hugeNotification03"/>
+    </div>
+
+    <div class="app--icon-badge p-1">
+      <p-badge badgeSize="small" value="2"/>
+      <ng-icon (click)="toggleMessage($event)" class="cursor-pointer" name="hugeMail02"/>
+    </div>
+
+    <div (click)="toggleUser($event)" class="cursor-pointer" class="app--header--user--login">
+      <img alt="user" class="app--header--login--img" src="images/garcon.png">
+    </div>
+  </div>
+</div>
+
+<p-popover #popoverShortcut>
+  <app-shortcut></app-shortcut>
+</p-popover>
+<p-popover #popoverMessage>
+  <app-message></app-message>
+</p-popover>
+<p-popover #popoverNotification>
+  <app-notification></app-notification>
+</p-popover>
+<p-popover #popoverUser>
+  <app-user></app-user>
+</p-popover>
