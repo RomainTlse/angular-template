@@ -1,0 +1,56 @@
+.popover--shortcut
+  width: 25rem
+
+  .popover--shortcut--title
+    padding: 0 var(--p-overlay-popover-padding) var(--p-overlay-popover-padding) var(--p-overlay-popover-padding)
+    border-block-end: var(--app-border-style) var(--app-border-size) var(--p-content-border-color)
+    display: flex
+    align-items: center
+    height: 3.5rem
+    font-size: var(--app-title-fontSize)
+    font-family: var(--app-title-fontFamily)
+    font-weight: var(--app-title-fontWeight)
+
+    span
+      flex: 9
+
+    ng-icon
+      cursor: pointer
+      flex: 1
+      color: var(--p-primary-color)
+
+
+  .popover--shortcut--list
+    border-top: none
+    height: 15rem
+
+    .popover--shortcut--list--row
+      display: flex
+
+      .popover--shortcut--list--cell
+        width: 50%
+        position: relative
+        padding: 1.5rem
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: center
+        gap: 0.75rem
+
+        &:hover
+          background-color: var(--p-content-hover-background)
+
+        .popover--shortcut--list--cell--categorie
+          display: flex
+          align-items: center
+          gap: 0.25rem
+          font-family: var(--app-category-fontFamily)
+          font-weight: var(--app-category-fontWeight)
+          font-size: var(--app-category-fontSize)
+
+        .popover--shortcut--list--cell--page
+          color: var(--p-text-muted-color)
+          font-family: var(--app-menuLink-fontFamily)
+          font-weight: var(--app-menuLink-fontWeight)
+          font-size: var(--app-menuLink-fontSize)
+

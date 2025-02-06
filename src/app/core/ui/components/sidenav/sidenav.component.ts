@@ -8,10 +8,11 @@ import { RouterLinkActive } from '@angular/router';
 import { provideIcons } from '@ng-icons/core';
 import { hugeAdd01, hugeRemove01 } from '@ng-icons/huge-icons';
 import { SidenavLinkComponent } from './sidenav-link/sidenav-link.component';
+import { Divider } from 'primeng/divider';
 
 @Component({
   selector: 'app-sidenav',
-  imports: [NgClass, SidenavLinkComponent],
+  imports: [NgClass, SidenavLinkComponent, Divider],
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.sass',
   viewProviders: [

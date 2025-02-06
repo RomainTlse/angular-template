@@ -1,13 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Bungee+Shade&family=Jura:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Quicksand:wght@300..700&family=Sixtyfour+Convergence&display=swap')
+
 a .app--sidenav--link,
 .app--sidenav--link--father
   padding: 0.5rem 1rem
-  font-family: "Nunito", serif
-  font-weight: 400
+  font-family: var(--app-menuLink-fontFamily)
+  font-weight: var(--app-menuLink-fontWeight)
+  font-size: var(--app-menuLink-fontSize)
   position: relative
 
   .app--sidenav--link--father--children--open
     visibility: visible !important
     height: auto !important
+    padding-top: 0.5rem
 
   .app--sidenav--link--father--title
     display: flex
@@ -25,8 +29,10 @@ a .app--sidenav--link,
   .app--sidenav--link--father--children
     visibility: hidden
     height: 0
-    padding: 0 0 0 1rem
     color: var(--p-text-muted-color)
+    font-family: var(--app-subMenuLink-fontFamily)
+    font-weight: var(--app-subMenuLink-fontWeight)
+    font-size: var(--app-subMenuLink-fontSize)
 
     a
       &.active
@@ -43,11 +49,15 @@ a .app--sidenav--link,
           &:hover
             color: var(--p-primary-active-color)
 
+            &:before
+              content: ""
+              border: 1px solid var(--p-primary-active-color) !important
+
       .app--sidenav--link--father--children--link
         display: flex
 
         div
-          padding: 0.5rem
+          padding: 0.5rem 0.5rem 0.5rem 1rem
 
         &:before
           content: ""
@@ -55,6 +65,10 @@ a .app--sidenav--link,
 
         &:hover
           color: var(--p-primary-color)
+
+          &:before
+            content: ""
+            border: 1px solid var(--p-primary-color) !important
 
   &.active
     &:before

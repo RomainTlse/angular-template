@@ -8,29 +8,9 @@
 
   <section class="app--content">
     <section class="app--header">
-      <div class="app--header--app">
-        <ng-icon (click)="openDialogSearch()" name="hugeSearch02"/>
-        <ng-icon (click)="toggleShortcut($event)" name="hugeGridView"/>
-
-      </div>
-      <div class="app--header--user">
-        <ng-icon (click)="themeService.toogleTheme()" name="{{icon}}"/>
-
-        <img (click)="languageService.changeLanguage(selectedLang === 'fr' ? 'en' : 'fr')" alt="language" height="24"
-             src="{{languageLogo}}" width="24">
-
-
-        <ng-icon (click)="toggleNotification($event)" name="hugeNotification03"/>
-        <div (click)="toggleUser($event)" class="app--header--user--login">
-          <img alt="user" class="app--header--login--img" src="images/garcon.png">
-        </div>
-      </div>
+      <app-header></app-header>
     </section>
     <main class="overflow-auto flex-1">
-      <button (click)="showSuccess()">Afficher Succès</button>
-      <button (click)="showError()">Afficher Erreur</button>
-      <button (click)="showInfo()">Afficher Information</button>
-      <button (click)="showWarning()">Afficher Avertissement</button>
       <router-outlet/>
       <section class="app--footer p-6">
         COPYRIGHT © 2025
@@ -39,15 +19,7 @@
   </section>
 </section>
 
-<p-popover #popoverShortcut>
-  <app-shortcut></app-shortcut>
-</p-popover>
-<p-popover #popoverNotification>
-  <app-notification></app-notification>
-</p-popover>
-<p-popover #popoverUser>
-  <app-user></app-user>
-</p-popover>
+
 <!--
   <div class="theme-toggle">
     <mat-slide-toggle

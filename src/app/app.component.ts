@@ -1,16 +1,11 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
-import { ThemeService } from './core/ui/services/theme.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Component, OnInit } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { MessageComponent } from './core/ui/components/message/message.component';
 import { MessageService } from './core/ui/services/message.service';
 import { LoaderComponent } from './core/ui/components/loader/loader.component';
 import { LoaderService } from './core/ui/services/loader.service';
-import {
-  Language,
-  LanguageService,
-} from './core/utils/services/language.service';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import {
   hugeGridView,
   hugeMoon02,
@@ -19,17 +14,9 @@ import {
   hugeSun02,
 } from '@ng-icons/huge-icons';
 import { RouterOutlet } from '@angular/router';
-import {
-  DialogService,
-  DynamicDialogModule,
-  DynamicDialogRef,
-} from 'primeng/dynamicdialog';
-import { SearchComponent } from './core/ui/components/modals/search/search.component';
-import { Popover } from 'primeng/popover';
-import { ShortcutComponent } from './core/ui/components/popovers/shortcut/shortcut.component';
-import { NotificationComponent } from './core/ui/components/popovers/notification/notification.component';
-import { UserComponent } from './core/ui/components/popovers/user/user.component';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { MenuComponent } from './core/ui/components/menu/menu.component';
+import { HeaderComponent } from './core/ui/components/header/header.component';
 
 export type Icon = 'hugeMoon02' | 'hugeSun02';
 
@@ -40,14 +27,10 @@ export type Icon = 'hugeMoon02' | 'hugeSun02';
     FormsModule,
     MessageComponent,
     LoaderComponent,
-    NgIcon,
     DynamicDialogModule,
     RouterOutlet,
-    ShortcutComponent,
-    Popover,
-    NotificationComponent,
-    UserComponent,
     MenuComponent,
+    HeaderComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.sass',
@@ -63,35 +46,12 @@ export type Icon = 'hugeMoon02' | 'hugeSun02';
   providers: [DialogService],
 })
 export class AppComponent implements OnInit {
-  @ViewChild('popoverShortcut') popoverShortcut!: Popover;
-  @ViewChild('popoverNotification') popoverNotification!: Popover;
-  @ViewChild('popoverUser') popoverUser!: Popover;
-
   title = 'angular-template';
-  icon: Icon = 'hugeSun02';
-
-  selectedLang: Language = 'fr'; // Langue par défaut
-  languageLogo = 'images/france.png'; // Logo par défaut
-  ref?: DynamicDialogRef;
-
-  private _dialogService = inject(DialogService);
 
   constructor(
-    public themeService: ThemeService,
-    protected languageService: LanguageService,
-    private _translate: TranslateService,
     private _messageService: MessageService,
     private _loaderService: LoaderService
   ) {
-    this.themeService.getTheme().subscribe((isDark) => {
-      this.icon = isDark ? 'hugeSun02' : 'hugeMoon02'; // Change l'icône selon le thème
-    });
-    this.languageService.getLanguage().subscribe((lang) => {
-      this.selectedLang = lang;
-      this.languageLogo =
-        lang === 'fr' ? 'images/royaume-uni.png' : 'images/france.png';
-    });
-
     // this._router.events.subscribe((event: any) => {
     //   if (event instanceof NavigationStart) {
     //
@@ -106,25 +66,6 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
       this._loaderService.hide();
     }, 1000);
-  }
-
-  openDialogSearch(): void {
-    this.ref = this._dialogService.open(SearchComponent, {
-      header: 'Select a Product',
-      modal: true,
-    });
-  }
-
-  toggleShortcut(event: MouseEvent) {
-    this.popoverShortcut.toggle(event);
-  }
-
-  toggleNotification(event: MouseEvent) {
-    this.popoverNotification.toggle(event);
-  }
-
-  toggleUser(event: MouseEvent) {
-    this.popoverUser.toggle(event);
   }
 
   showSuccess() {
