@@ -23,7 +23,6 @@ export class MessageComponent implements OnInit, OnDestroy {
     this.messageSubscription = this._messageService.messages$.subscribe(
       (message) => {
         if (message) {
-          console.log('message', message);
           this.messages.push(message); // Ajouter la message à la liste
           setTimeout(() => {
             this.messages.shift(); // Retirer la message après la durée
