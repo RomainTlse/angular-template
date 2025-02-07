@@ -4,7 +4,7 @@ import { NgScrollbar } from 'ngx-scrollbar';
 import { Divider } from 'primeng/divider';
 import { Mail } from '../../../interfaces/mail';
 import { DatetimeService } from '../../../../utils/services/datetime.service';
-import { HttpClient } from '@angular/common/http';
+import { MailService } from '../../../services/mail.service';
 
 @Component({
   selector: 'app-message',
@@ -15,10 +15,10 @@ import { HttpClient } from '@angular/common/http';
 export class MessageComponent implements OnInit {
   mails?: Mail[];
   private _datetimeService = inject(DatetimeService);
-  private _http = inject(HttpClient);
+  private _mailService = inject(MailService);
 
   ngOnInit() {
-    this._http.get<Mail[]>('documents/mails.json').subscribe((mails) => {
+    this._mailService.getMails().subscribe((mails: Mail[]) => {
       this.mails = mails;
       this.mails.forEach((mail) => {
         mail.timeDifference = this._datetimeService.getDateTimeDifference(

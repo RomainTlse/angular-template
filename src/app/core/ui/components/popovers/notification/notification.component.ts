@@ -8,9 +8,9 @@ import {
 } from '@ng-icons/huge-icons';
 import { NgScrollbar } from 'ngx-scrollbar';
 import { Divider } from 'primeng/divider';
-import { HttpClient } from '@angular/common/http';
 import { Notification } from '../../../interfaces/notification';
 import { DatetimeService } from '../../../../utils/services/datetime.service';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-notification',
@@ -28,12 +28,12 @@ import { DatetimeService } from '../../../../utils/services/datetime.service';
 export class NotificationComponent implements OnInit {
   notifications?: Notification[];
   private _datetimeService = inject(DatetimeService);
-  private _http = inject(HttpClient);
+  private _notificationService = inject(NotificationService);
 
   ngOnInit() {
-    this._http
-      .get<Notification[]>('documents/notifications.json')
-      .subscribe((notifications) => {
+    this._notificationService
+      .getNotifications()
+      .subscribe((notifications: Notification[]) => {
         this.notifications = notifications;
         this.notifications.forEach((notification) => {
           notification.timeDifference =

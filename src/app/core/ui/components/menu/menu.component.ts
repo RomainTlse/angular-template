@@ -11,14 +11,13 @@ import {
   hugeMapsCircle01,
   hugeRemove01,
 } from '@ng-icons/huge-icons';
-import { HttpClient } from '@angular/common/http';
 import { Menu } from '../../interfaces/menu';
 import { Tooltip } from 'primeng/tooltip';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { SidenavComponent } from '../sidenav/sidenav.component';
 import { SidenavService } from '../../services/sidenav.service';
 import { NgClass } from '@angular/common';
-import { Subscription } from 'rxjs';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
   selector: 'app-menu',
@@ -51,21 +50,15 @@ export class MenuComponent implements OnInit {
   categoryUrls: { categoryName: string; urls: string[] }[] = [];
   isLocked = false;
 
-  private _http = inject(HttpClient);
+  private _menuService = inject(MenuService);
   private _sidenavService = inject(SidenavService);
   private _router = inject(Router);
-  private _subscription?: Subscription;
 
   ngOnInit() {
-    this._http.get<Menu[]>('documents/menus.json').subscribe((menus) => {
+    this._menuService.getMenus().subscribe((menus: Menu[]) => {
       this.menus = menus;
       this.categoryUrls = this.getCategoriesWithUrls();
     });
-    this._subscription = this._sidenavService.isLockedState$.subscribe(
-      (state: boolean) => {
-        this.isLocked = state;
-      }
-    );
   }
 
   showSidenav(index: number, menu: Menu): void {

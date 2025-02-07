@@ -112,23 +112,26 @@ export class HttpRequestService {
   /**
    * PUT datas
    * @param route
+   * @param id
    * @param datasToPut
    * @param params
    */
   public updateDatas<T>(
     route: string,
+    id: number,
     datasToPut: T,
     params?: HttpParams
   ): Observable<T> {
+    const url = `${route}/${id}`;
     if (params) {
-      return this._http.put<T>(route, datasToPut, {
+      return this._http.put<T>(url, datasToPut, {
         params: params,
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
         }),
       });
     }
-    return this._http.put<T>(route, datasToPut, {
+    return this._http.put<T>(url, datasToPut, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
