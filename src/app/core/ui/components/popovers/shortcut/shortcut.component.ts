@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { hugeAdd02 } from '@ng-icons/huge-icons';
+import { hugeAdd02, hugeFolderLinks } from '@ng-icons/huge-icons';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @Component({
@@ -11,6 +11,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
   viewProviders: [
     provideIcons({
       hugeAdd02,
+      hugeFolderLinks,
     }),
   ],
 })

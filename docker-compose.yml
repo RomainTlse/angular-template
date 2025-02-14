@@ -4,4 +4,4 @@ services:
   angular-template:
     build: .
     ports:
-      - "80:80"
+      - '80:80'

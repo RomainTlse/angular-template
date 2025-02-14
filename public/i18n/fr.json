@@ -10,5 +10,14 @@
     },
     "returnHome": "Retour à l'accueil"
   },
+  "header": {
+    "displayAllMails": "Afficher tous les mails",
+    "displayAllNotifications": "Afficher toutes les notifications",
+    "mails": "Mails",
+    "noResult": "Mission impossible ! \uD83D\uDD75\uFE0F\u200D♂\uFE0F Aucune trace de ce que vous cherchez... C'est comme chercher une aiguille dans une meule de foin, mais sans la meule. Essayez à nouveau ? \uD83D\uDE05",
+    "notifications": "Notifications",
+    "shortcuts": "Raccourcies",
+    "search": "Recherche"
+  },
   "hello": "Bonjour"
 }

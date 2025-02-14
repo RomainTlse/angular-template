@@ -1,33 +1,43 @@
 @if (menu && menu.menus) {
-  <div class="app--sidenav--link--father" [ngClass]="{'active': isAnyChildActive(menu.name!, idx)}">
+  <div
+    class="app--sidenav--link--father"
+    [ngClass]="{ active: isAnyChildActive(menu.name!, idx) }"
+  >
     <div class="app--sidenav--link--father--title text-sm">
       <span>{{ menu.name! }}</span>
-      @if (menu.name! && fatherOpen === (menu.name! + idx)) {
-        <ng-icon class="cursor-pointer" name="hugeRemove01" (click)="openFather()"/>
+      @if (menu.name! && fatherOpen === menu.name! + idx) {
+        <ng-icon
+          class="cursor-pointer"
+          name="hugeRemove01"
+          (click)="openFather()"
+        />
       } @else {
-        <ng-icon class="cursor-pointer" name="hugeAdd01" (click)="openFather(menu.name!, idx)"/>
+        <ng-icon
+          class="cursor-pointer"
+          name="hugeAdd01"
+          (click)="openFather(menu.name!, idx)"
+        />
       }
     </div>
 
     <div
-      [ngClass]="{'app--sidenav--link--father--children--open' : (menu.name! && fatherOpen === menu.name! + idx)}"
-      class="app--sidenav--link--father--children text-xs">
+      [ngClass]="{
+        'app--sidenav--link--father--children--open':
+          menu.name! && fatherOpen === menu.name! + idx,
+      }"
+      class="app--sidenav--link--father--children text-xs"
+    >
       @for (submenuChild of menu.menus; track submenuChild.id) {
-        <a routerLinkActive="active"
-           routerLink="{{submenuChild.page?.url}}">
-          <div class="app--sidenav--link--father--children--link"
-          >
+        <a routerLinkActive="active" routerLink="{{ submenuChild.page?.url }}">
+          <div class="app--sidenav--link--father--children--link">
             <div>{{ submenuChild.page?.name }}</div>
           </div>
         </a>
       }
     </div>
-
-
   </div>
 } @else {
-  <a
-    routerLinkActive="active" routerLink="{{menu?.page?.url}}">
+  <a routerLinkActive="active" routerLink="{{ menu?.page?.url }}">
     <div class="app--sidenav--link text-sm">{{ menu?.page?.name }}</div>
   </a>
 }

@@ -5,17 +5,19 @@ import { Menu } from '../../../interfaces/menu';
 import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { hugeAdd02, hugeLink01 } from '@ng-icons/huge-icons';
+import { hugeAdd02, hugeFolderLinks, hugeLink01 } from '@ng-icons/huge-icons';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-search',
-  imports: [FloatLabel, InputText, ReactiveFormsModule, NgIcon],
+  imports: [FloatLabel, InputText, ReactiveFormsModule, NgIcon, TranslatePipe],
   templateUrl: './search.component.html',
   styleUrl: './search.component.sass',
   viewProviders: [
     provideIcons({
       hugeAdd02,
       hugeLink01,
+      hugeFolderLinks,
     }),
   ],
 })

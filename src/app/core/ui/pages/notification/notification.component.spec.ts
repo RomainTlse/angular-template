@@ -2,13 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotificationComponent } from './notification.component';
 import { provideHttpClient } from '@angular/common/http';
-import {
-  TranslateFakeLoader,
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
 import { provideStore } from '@ngxs/store';
-import { NotificationState } from '../../../stores/notification/notification.state';
+import { NotificationState } from '../../stores/notification/notification.state';
 
 describe('NotificationComponent', () => {
   let component: NotificationComponent;
@@ -16,15 +11,7 @@ describe('NotificationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        NotificationComponent,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateFakeLoader,
-          },
-        }),
-      ],
+      imports: [NotificationComponent],
       providers: [provideHttpClient(), provideStore([NotificationState])],
     }).compileComponents();
 

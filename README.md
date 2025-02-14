@@ -291,9 +291,9 @@ export const appConfig: ApplicationConfig = {
 `ng g s core/utils/services/language`
 
 ```typescript
-import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
-import {TranslateService} from '@ngx-translate/core';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 export type Language = 'fr' | 'en';
 
@@ -352,16 +352,15 @@ export class LanguageService {
 `ng g s core/utils/services/http-request`
 
 ```typescript
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HttpRequestService {
-  constructor(private _http: HttpClient) {
-  }
+  constructor(private _http: HttpClient) {}
 
   /**
    * Get All datas or a spécific data
@@ -390,7 +389,11 @@ export class HttpRequestService {
    * @param id
    * @param params
    */
-  public getById<T>(route: string, id: number, params?: HttpParams): Observable<T> {
+  public getById<T>(
+    route: string,
+    id: number,
+    params?: HttpParams
+  ): Observable<T> {
     const url = `${route}/${id}`;
     if (params) {
       return this._http.get<T>(url, {
@@ -413,7 +416,11 @@ export class HttpRequestService {
    * @param datasToPost
    * @param params
    */
-  public postDatas<T>(route: string, datasToPost: T, params?: HttpParams): Observable<T> {
+  public postDatas<T>(
+    route: string,
+    datasToPost: T,
+    params?: HttpParams
+  ): Observable<T> {
     if (params) {
       return this._http.post<T>(route, datasToPost, {
         params: params,
@@ -435,7 +442,11 @@ export class HttpRequestService {
    * @param id
    * @param params
    */
-  public deleteDatas(route: string, id: number, params?: HttpParams): Observable<unknown> {
+  public deleteDatas(
+    route: string,
+    id: number,
+    params?: HttpParams
+  ): Observable<unknown> {
     const url = `${route}/${id}`;
     if (params) {
       return this._http.delete(url, {
@@ -458,7 +469,11 @@ export class HttpRequestService {
    * @param datasToPut
    * @param params
    */
-  public updateDatas<T>(route: string, datasToPut: T, params?: HttpParams): Observable<T> {
+  public updateDatas<T>(
+    route: string,
+    datasToPut: T,
+    params?: HttpParams
+  ): Observable<T> {
     if (params) {
       return this._http.put<T>(route, datasToPut, {
         params: params,
@@ -474,7 +489,6 @@ export class HttpRequestService {
     });
   }
 }
-
 ```
 
 ## Docker
@@ -513,8 +527,7 @@ services:
   angular-template:
     build: .
     ports:
-      - "80:80"
-
+      - '80:80'
 ```
 
 `.htaccess`
@@ -593,9 +606,9 @@ import {
   HttpInterceptorFn,
   HttpResponse,
 } from '@angular/common/http';
-import {catchError, tap, throwError} from 'rxjs';
-import {inject} from '@angular/core';
-import {Router} from '@angular/router';
+import { catchError, tap, throwError } from 'rxjs';
+import { inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 export const httpErrorInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
@@ -612,7 +625,6 @@ export const httpErrorInterceptor: HttpInterceptorFn = (req, next) => {
     })
   );
 };
-
 ```
 
 `app.routes.ts`
@@ -641,20 +653,19 @@ export interface Message {
   title: string;
   type: MessageType;
   subtitle?: string;
-  duration?: number; // Durée de l'affichage du message, en millisecondes
+  duration?: number; // Durée de l'affichage du mail, en millisecondes
   undoable?: boolean; // Si un bouton Undo doit être affiché
   startTime?: number; // Initialisation du startTime
   progress?: number;
 }
-
 ```
 
 `ng g s core/ui/services/message`
 
 ```typescript
-import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
-import {Message, MessageType} from '../interfaces/message';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { Message, MessageType } from '../interfaces/mail';
 
 @Injectable({
   providedIn: 'root',
@@ -686,7 +697,6 @@ export class MessageService {
     this._messagesSubject.next(null);
   }
 }
-
 ```
 
 `ng g c core/ui/components/message`
@@ -701,15 +711,14 @@ https://codepen.io/sohrabzia/pen/XJrrgKw
 export interface Loader {
   show: boolean;
 }
-
 ```
 
 `ng g s core/ui/services/loader`
 
 ```typescript
-import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
-import {Loader} from '../interfaces/loader';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { Loader } from '../interfaces/loader';
 
 @Injectable({
   providedIn: 'root',
@@ -722,17 +731,16 @@ export class LoaderService {
    * show the loader
    */
   public show(): void {
-    this._loader.next(<Loader>{show: true});
+    this._loader.next(<Loader>{ show: true });
   }
 
   /**
    * hide the loader
    */
   public hide(): void {
-    this._loader.next(<Loader>{show: false});
+    this._loader.next(<Loader>{ show: false });
   }
 }
-
 ```
 
 `ng g c core/ui/components/loader`

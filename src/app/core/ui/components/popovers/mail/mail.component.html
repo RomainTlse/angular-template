@@ -1,42 +1,51 @@
 <div class="popover--message">
   <div class="popover--message--title">
-    <span> Messages (2)</span>
-    <p-button [link]="true" label="Clear all"/>
+    <span> {{ 'header.mails' | translate }} ({{ mailCount }})</span>
   </div>
   <div class="popover--message--list">
     <ng-scrollbar [buttons]="false">
-      @for (mail of mails; track mail.id) {
+      @for (mail of mails$ | async; track mail.id) {
         <div class="popover--message--list--row">
-
           <div class="popover--message--icon">
             <div class="popover--message--icon--bg">
               @if (mail.expediteur.icon) {
-                <img alt="user" class="app--header--login--img" src="{{mail.expediteur.icon}}">
+                <img
+                  alt="user"
+                  class="app--header--login--img"
+                  src="{{ mail.expediteur.icon }}"
+                />
               } @else {
-                {{ getInitials(mail.expediteur.prenom + " " + mail.expediteur.nom) }}
+                {{
+                  getInitials(
+                    mail.expediteur.prenom + ' ' + mail.expediteur.nom
+                  )
+                }}
               }
             </div>
           </div>
 
           <div class="popover--message--infos">
-            <div class="popover--message--desc text-lg">{{ mail.expediteur.prenom }} {{ mail.expediteur.nom }}</div>
-            <div class="popover--message--subDesc text-sm">{{ mail.objet }}</div>
-            <div class="popover--message--time text-xs">{{ mail.timeDifference }}</div>
+            <div class="popover--message--desc text-lg">
+              {{ mail.expediteur.prenom }} {{ mail.expediteur.nom }}
+            </div>
+            <div class="popover--message--subDesc text-sm">
+              {{ mail.objet }}
+            </div>
+            <div class="popover--message--time text-xs">
+              {{ datetimeService.getDateTimeDifference(mail.dt_send) }}
+            </div>
           </div>
           @if (mail.is_open) {
             <div class="popover--message--status">
-              <div class="popover--message--is-open">
-              </div>
+              <div class="popover--message--is-open"></div>
             </div>
           }
-
         </div>
-        <p-divider/>
+        <p-divider />
       }
     </ng-scrollbar>
-
   </div>
   <div class="popover--message--footer">
-    <p-button [link]="true" label="Afficher les messages"/>
+    <p-button [label]="'header.displayAllMails' | translate" [link]="true" />
   </div>
 </div>

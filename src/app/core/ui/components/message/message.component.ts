@@ -23,9 +23,9 @@ export class MessageComponent implements OnInit, OnDestroy {
     this.messageSubscription = this._messageService.messages$.subscribe(
       (message) => {
         if (message) {
-          this.messages.push(message); // Ajouter la message à la liste
+          this.messages.push(message); // Ajouter le message à la liste
           setTimeout(() => {
-            this.messages.shift(); // Retirer la message après la durée
+            this.messages.shift(); // Retirer le message après la durée
           }, message.duration! + 1100);
         }
       }
@@ -77,7 +77,7 @@ export class MessageComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Fonction pour fermer une message manuellement
+  // Fonction pour fermer une mail manuellement
   closeMessage(index: number): void {
     this.messages.splice(index, 1);
   }
@@ -86,6 +86,6 @@ export class MessageComponent implements OnInit, OnDestroy {
   undoMessage(index: number): void {
     const message = this.messages[index];
     console.log('Undo:', message.title);
-    this.messages.splice(index, 1); // Supprimer la message
+    this.messages.splice(index, 1); // Supprimer la mail
   }
 }

@@ -8,6 +8,9 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { provideHttpClient } from '@angular/common/http';
+import { provideStore } from '@ngxs/store';
+import { NotificationState } from '../../stores/notification/notification.state';
+import { MailState } from '../../stores/mail/mail.state';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -24,7 +27,11 @@ describe('HeaderComponent', () => {
           },
         }),
       ],
-      providers: [DialogService, provideHttpClient()],
+      providers: [
+        DialogService,
+        provideHttpClient(),
+        provideStore([NotificationState, MailState]),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);

@@ -13,6 +13,13 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import { definePreset } from '@primeng/themes';
+import { withNgxsReduxDevtoolsPlugin } from '@ngxs/devtools-plugin';
+import { withNgxsFormPlugin } from '@ngxs/form-plugin';
+import { withNgxsLoggerPlugin } from '@ngxs/logger-plugin';
+import { withNgxsWebSocketPlugin } from '@ngxs/websocket-plugin';
+import { provideStore } from '@ngxs/store';
+import { NotificationState } from './core/ui/stores/notification/notification.state';
+import { MailState } from './core/ui/stores/mail/mail.state';
 
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (
   http: HttpClient
@@ -57,5 +64,12 @@ export const appConfig: ApplicationConfig = {
         },
       }),
     ]),
+    provideStore(
+      [NotificationState, MailState],
+      withNgxsReduxDevtoolsPlugin(),
+      withNgxsFormPlugin(),
+      withNgxsLoggerPlugin(),
+      withNgxsWebSocketPlugin()
+    ),
   ],
 };

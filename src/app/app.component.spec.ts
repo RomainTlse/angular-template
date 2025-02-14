@@ -6,6 +6,9 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { provideHttpClient } from '@angular/common/http';
+import { provideStore } from '@ngxs/store';
+import { NotificationState } from './core/ui/stores/notification/notification.state';
+import { MailState } from './core/ui/stores/mail/mail.state';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -19,7 +22,10 @@ describe('AppComponent', () => {
           },
         }),
       ],
-      providers: [provideHttpClient()],
+      providers: [
+        provideStore([NotificationState, MailState]),
+        provideHttpClient(),
+      ],
     }).compileComponents();
   });
 

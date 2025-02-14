@@ -1,0 +1,15 @@
+<p-badge [value]="notificationCount"></p-badge>
+
+@for (notification of notifications$ | async; track notification.id) {
+  <div>
+    <div [ngClass]="notification.type.classCss">
+      <i [class]="notification.type.icon"></i>
+      <h4>{{ notification.title }}</h4>
+      <p>{{ notification.description }}</p>
+      <button (click)="removeNotification(notification.id)">Close</button>
+    </div>
+  </div>
+}
+
+<button (click)="addNotification()">Add Notification</button>
+<!--<button (click)="updateNotification()">Update Notification</button>-->

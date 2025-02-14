@@ -13,8 +13,10 @@ import {
   LanguageService,
 } from '../../../utils/services/language.service';
 import { Badge } from 'primeng/badge';
-import { MessageComponent } from '../popovers/message/message.component';
+import { MailComponent } from '../popovers/mail/mail.component';
 import { hugeMail02 } from '@ng-icons/huge-icons';
+import { Store } from '@ngxs/store';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
@@ -25,7 +27,7 @@ import { hugeMail02 } from '@ng-icons/huge-icons';
     ShortcutComponent,
     UserComponent,
     Badge,
-    MessageComponent,
+    MailComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.sass',
@@ -47,10 +49,15 @@ export class HeaderComponent {
   icon: Icon = 'hugeSun02';
   selectedLang: Language = 'fr';
   languageLogo = 'images/france.png';
+  notificationCount = 0;
+  mailCount = 0;
   protected dialogService = inject(DialogService);
   protected languageService = inject(LanguageService);
 
-  constructor() {
+  constructor(
+    private store: Store,
+    private translate: TranslateService
+  ) {
     this.themeService.getTheme().subscribe((isDark) => {
       this.icon = isDark ? 'hugeSun02' : 'hugeMoon02'; // Change l'icône selon le thème
     });
@@ -60,20 +67,35 @@ export class HeaderComponent {
       this.languageLogo =
         lang === 'fr' ? 'images/royaume-uni.png' : 'images/france.png';
     });
+
+    this.store
+      .select((state) => state.notifications.notificationCount)
+      .subscribe((count) => (this.notificationCount = count ?? 0));
+
+    this.store
+      .select((state) => state.mails.mailCount)
+      .subscribe((count) => {
+        console.log(count);
+        return (this.mailCount = count ?? 0);
+      });
   }
 
   openDialogSearch(): void {
-    this.ref = this.dialogService.open(SearchComponent, {
-      header: 'Search',
-      modal: true,
-      width: '500px',
-      closable: true,
-      dismissableMask: true,
-    });
+    this.translate
+      .get('header.search')
+      .subscribe((translatedHeader: string) => {
+        this.ref = this.dialogService.open(SearchComponent, {
+          header: translatedHeader,
+          modal: true,
+          width: '500px',
+          closable: true,
+          dismissableMask: true,
+        });
 
-    this.ref.onClose.subscribe(() => {
-      console.log('--modale search close');
-    });
+        this.ref.onClose.subscribe(() => {
+          console.log('--modale search close');
+        });
+      });
   }
 
   toggleShortcut(event: MouseEvent) {
