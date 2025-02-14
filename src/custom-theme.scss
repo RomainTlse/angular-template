@@ -3,52 +3,63 @@
 
 html {
   color-scheme: light;
-  @include mat.theme((
-    color: mat.$red-palette,
-    typography: Roboto,
-    density: 0
-  ));
+  @include mat.theme(
+    (
+      color: mat.$red-palette,
+      typography: Roboto,
+      density: 0,
+    )
+  );
 }
 
 html.dark-mode {
   color-scheme: dark;
-  @include mat.theme((
-    color: mat.$rose-palette,
-    typography: Roboto,
-    density: 0
-  ));
+  @include mat.theme(
+    (
+      color: mat.$rose-palette,
+      typography: Roboto,
+      density: 0,
+    )
+  );
 }
 
 // Customize the entire app. Change :root to your selector if you want to scope the styles.
 .my-custom-progress-bar {
   &.success {
-    @include mat.progress-bar-overrides((
-      active-indicator-color: $success_secondary,
-      track-color: $carbon,
-    ));
+    @include mat.progress-bar-overrides(
+      (
+        active-indicator-color: $success_secondary,
+        track-color: $carbon,
+      )
+    );
   }
 
   &.warning {
-    @include mat.progress-bar-overrides((
-      active-indicator-color: $warning_secondary,
-      track-color: $carbon,
-    ));
+    @include mat.progress-bar-overrides(
+      (
+        active-indicator-color: $warning_secondary,
+        track-color: $carbon,
+      )
+    );
   }
 
   &.error {
-    @include mat.progress-bar-overrides((
-      active-indicator-color: $error_secondary,
-      track-color: $carbon,
-    ));
+    @include mat.progress-bar-overrides(
+      (
+        active-indicator-color: $error_secondary,
+        track-color: $carbon,
+      )
+    );
   }
 
   &.info {
-    @include mat.progress-bar-overrides((
-      active-indicator-color: $info_secondary,
-      track-color: $carbon,
-    ));
+    @include mat.progress-bar-overrides(
+      (
+        active-indicator-color: $info_secondary,
+        track-color: $carbon,
+      )
+    );
   }
-
 }
 
 body {

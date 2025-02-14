@@ -1,19 +1,34 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MessageComponent } from './message.component';
+import { MailComponent } from './mail.component';
 import { provideHttpClient } from '@angular/common/http';
+import {
+  TranslateFakeLoader,
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { provideStore } from '@ngxs/store';
+import { MailState } from '../../../stores/mail/mail.state';
 
 describe('MessageComponent', () => {
-  let component: MessageComponent;
-  let fixture: ComponentFixture<MessageComponent>;
+  let component: MailComponent;
+  let fixture: ComponentFixture<MailComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MessageComponent],
-      providers: [provideHttpClient()],
+      imports: [
+        MailComponent,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateFakeLoader,
+          },
+        }),
+      ],
+      providers: [provideHttpClient(), provideStore([MailState])],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MessageComponent);
+    fixture = TestBed.createComponent(MailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,5 +1,5 @@
 export interface Mail {
-  id: string;
+  id: number;
   expediteur: Expediteur;
   objet: string;
   content: string;

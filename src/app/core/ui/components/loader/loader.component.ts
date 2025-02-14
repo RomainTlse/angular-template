@@ -2,7 +2,10 @@ import {
   Component,
   ElementRef,
   ViewChild,
-  ViewEncapsulation, OnInit, AfterViewInit, OnDestroy,
+  ViewEncapsulation,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LoaderService } from '../../services/loader.service';

@@ -3,18 +3,18 @@
     <div [ngClass]="message.type" class="snackbar">
       <div [ngClass]="message.type" class="snackbar--icon">
         @switch (message.type) {
-          @case ("success") {
+          @case ('success') {
             <div class="snackbar--icon--icon">
               <span class="pi pi-check-circle"></span>
             </div>
           }
-          @case ("error") {
+          @case ('error') {
             <span class="pi pi-times-circle"></span>
           }
-          @case ("warning") {
+          @case ('warning') {
             <span class="pi pi-exclamation-triangle"></span>
           }
-          @case ("info") {
+          @case ('info') {
             <span class="pi pi-info-circle"></span>
           }
         }
@@ -25,28 +25,35 @@
       </div>
       @if (message.undoable) {
         <div class="snackbar--separator"></div>
-        <div (click)="undoMessage(idx)" (keydown)="onKeydown($event, 'undo', idx)"
-             class="snackbar--undo"
-             tabindex="1">
+        <div
+          (click)="undoMessage(idx)"
+          (keydown)="onKeydown($event, 'undo', idx)"
+          class="snackbar--undo"
+          tabindex="1"
+        >
           Undo
         </div>
       }
-      <div (click)="closeMessage(idx)" (keydown)="onKeydown($event, 'close', idx)" [ngClass]="message.type"
-           class="snackbar--close"
-           tabindex="0">
+      <div
+        (click)="closeMessage(idx)"
+        (keydown)="onKeydown($event, 'close', idx)"
+        [ngClass]="message.type"
+        class="snackbar--close"
+        tabindex="0"
+      >
         <!-- Bouton Fermer -->
         <span class="pi pi-times"></span>
       </div>
       @if (message.duration) {
         <div class="snackbar--progress">
-          <p-progressBar [color]="colorProgressBar(message)"
-                         [style]="{height: '5px'}"
-                         [value]="getProgressBarWidth(message)"
-                         [showValue]="false"></p-progressBar>
+          <p-progressBar
+            [color]="colorProgressBar(message)"
+            [style]="{ height: '5px' }"
+            [value]="getProgressBarWidth(message)"
+            [showValue]="false"
+          ></p-progressBar>
         </div>
       }
     </div>
-
   }
-
 </section>

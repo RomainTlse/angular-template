@@ -1,26 +1,37 @@
 <div class="flex">
   <section class="app--menu">
-    <img alt="logo" height="50" src="images/angular.svg" width="50">
+    <img alt="logo" height="50" src="images/angular.svg" width="50" />
 
     @for (menu of menus; track menu.id; let idx = $index) {
       @if (!menu.categories && !menu.menus) {
-        <a routerLink="{{menu.page?.url}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-          <div class="app--icon " pTooltip="{{menu.page?.name}}" tooltipPosition="right" (mouseenter)="hideSidenav()">
-            <ng-icon name="{{menu.icon}}"/>
+        <a
+          routerLink="{{ menu.page?.url }}"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <div
+            class="app--icon"
+            pTooltip="{{ menu.page?.name }}"
+            tooltipPosition="right"
+            (mouseenter)="hideSidenav()"
+          >
+            <ng-icon name="{{ menu.icon }}" />
           </div>
         </a>
       } @else {
-        <div class="app--icon " [ngClass]="{'active': isActive(menu.name)}" pTooltip="{{menu.name}}"
-             tooltipPosition="right" (mouseenter)="showSidenav(idx, menu)">
-          <ng-icon name="{{menu.icon}}"/>
+        <div
+          class="app--icon"
+          [ngClass]="{ active: isActive(menu.name) }"
+          pTooltip="{{ menu.name }}"
+          tooltipPosition="right"
+          (mouseenter)="showSidenav(idx, menu)"
+        >
+          <ng-icon name="{{ menu.icon }}" />
         </div>
-
       }
-
     }
   </section>
 
   <!--  <app-sidenav></app-sidenav>-->
   <app-sidenav (mouseleave)="hideSidenav()"></app-sidenav>
 </div>
-

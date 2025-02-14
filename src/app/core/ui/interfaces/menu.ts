@@ -1,3 +1,5 @@
+import { Page } from './page';
+
 export interface Menu {
   id: number;
   name?: string;
@@ -5,10 +7,4 @@ export interface Menu {
   categories?: Menu[];
   menus?: Menu[];
   page?: Page;
-}
-
-export interface Page {
-  id: number;
-  name: string;
-  url: string;
 }

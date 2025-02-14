@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Button } from 'primeng/button';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
@@ -9,12 +9,17 @@ import {
 import { NgScrollbar } from 'ngx-scrollbar';
 import { Divider } from 'primeng/divider';
 import { Notification } from '../../../interfaces/notification';
+import { Store } from '@ngxs/store';
+import { LoadNotifications } from '../../../stores/notification/notification.actions';
+import { NotificationState } from '../../../stores/notification/notification.state';
+import { AsyncPipe } from '@angular/common';
 import { DatetimeService } from '../../../../utils/services/datetime.service';
-import { NotificationService } from '../../../services/notification.service';
+import { Observable } from 'rxjs';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-notification',
-  imports: [Button, NgIcon, NgScrollbar, Divider],
+  imports: [Button, NgIcon, NgScrollbar, Divider, AsyncPipe, TranslatePipe],
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.sass',
   viewProviders: [
@@ -25,22 +30,20 @@ import { NotificationService } from '../../../services/notification.service';
     }),
   ],
 })
-export class NotificationComponent implements OnInit {
-  notifications?: Notification[];
-  private _datetimeService = inject(DatetimeService);
-  private _notificationService = inject(NotificationService);
+export class NotificationComponent {
+  notifications$: Observable<Notification[]>;
+  notificationCount = 0;
 
-  ngOnInit() {
-    this._notificationService
-      .getNotifications()
-      .subscribe((notifications: Notification[]) => {
-        this.notifications = notifications;
-        this.notifications.forEach((notification) => {
-          notification.timeDifference =
-            this._datetimeService.getDateTimeDifference(
-              notification.dt_created
-            );
-        });
-      });
+  protected datetimeService = inject(DatetimeService);
+
+  constructor(private store: Store) {
+    this.store.dispatch(new LoadNotifications());
+    this.notifications$ = this.store.select(
+      NotificationState.getAllNotifications
+    );
+
+    this.store
+      .select((state) => state.notifications.notificationCount)
+      .subscribe((count) => (this.notificationCount = count ?? 0));
   }
 }

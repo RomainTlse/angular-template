@@ -1,44 +1,48 @@
 <div class="modal--content">
   <form [formGroup]="searchForm">
     <p-floatlabel class="w-full" variant="on">
-      <input autocomplete="off" formControlName="searchQuery" id="on_label" pInputText/>
-      <label for="on_label">Search</label>
+      <input
+        autocomplete="off"
+        formControlName="searchQuery"
+        id="on_label"
+        pInputText
+      />
+      <label for="on_label">{{ 'header.search' | translate }}</label>
     </p-floatlabel>
   </form>
 
   @if (filteredCcategoryUrlsName && filteredCcategoryUrlsName.length > 0) {
     <div class="modal--categories">
-      @for (category of filteredCcategoryUrlsName; track category.categoryName) {
+      @for (
+        category of filteredCcategoryUrlsName;
+        track category.categoryName
+      ) {
         <div class="modal--categorie">
           <div class="modal--categorie--title">
-            <ng-icon name="hugeAdd02"/>
+            <ng-icon name="hugeFolderLinks" />
             <span>{{ category.categoryName }}</span>
           </div>
           <div class="modal--categorie--urls">
             @for (menu of category.menus; track menu.menuName) {
               <a [href]="menu.url" class="flex items-center">
-                <ng-icon name="hugeLink01"/>
-                <div class="modal--categorie--link p-1">{{ menu.menuName }}</div>
+                <ng-icon name="hugeLink01" />
+                <div class="modal--categorie--link p-1">
+                  {{ menu.menuName }}
+                </div>
               </a>
             }
           </div>
         </div>
-
       }
     </div>
   } @else {
     <div class="m-6 text-sm">
-      Mission impossible ! 🕵️‍♂️ Aucune trace de ce que vous cherchez... C'est comme chercher une aiguille dans une
-      meule de foin, mais sans la meule. Essayez à nouveau ? 😅
+      {{ 'header.noResult' | translate }}
     </div>
-
   }
-
-
 
   <!--  <div class="footer">-->
   <!--    <p-button label="Cancel" severity="secondary"/>-->
   <!--    <p-button label="Save"/>-->
   <!--  </div>-->
-
 </div>
