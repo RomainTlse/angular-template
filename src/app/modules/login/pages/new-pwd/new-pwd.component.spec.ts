@@ -8,9 +8,8 @@ describe('NewPwdComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NewPwdComponent]
-    })
-    .compileComponents();
+      imports: [NewPwdComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(NewPwdComponent);
     component = fixture.componentInstance;
