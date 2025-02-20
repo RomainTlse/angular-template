@@ -1,0 +1,32 @@
+<div class="app--login">
+  <div class="app--login--content">
+    <p-card>
+      <div class="flex flex-col gap-3 items-center text-center">
+        <div class="w-full flex justify-center m-5">
+          <img alt="logo" height="50" src="images/angular.svg" width="50"/>
+        </div>
+        <p class="m-2 text-2xl">
+          Modification du mot de passe 🔒
+        </p>
+        <p class="m-2 text-lg w-96">
+          <b>John.doe&#64;mail.fr</b>
+          Tu es sur le point de changer de mot de passe ! 🔑 Choisis-en un nouveau, solide comme un roc, pour protéger
+          ton royaume numérique. Une fois cela fait, tu seras prêt à repartir du bon pied ! 🚀
+        </p>
+        <p-floatlabel class="w-full" variant="on">
+          <p-password [toggleMask]="true" id="pwd" inputId="pwd"/>
+          <label for="pwd">Mot de passe</label>
+        </p-floatlabel>
+        <p-floatlabel class="w-full" variant="on">
+          <p-password [toggleMask]="true" id="confirm-pwd" inputId="confirm-pwd"/>
+          <label for="confirm-pwd">Confirmation</label>
+        </p-floatlabel>
+        <div class="m-4">
+          <p-button label="Enregistrer"/>
+        </div>
+      </div>
+
+
+    </p-card>
+  </div>
+</div>

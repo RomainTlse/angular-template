@@ -1,0 +1,72 @@
+<div class="app--login">
+  <div class="app--login--content">
+    <p-card>
+      <div class="flex flex-col gap-3 items-center text-center">
+        <div class="w-full flex justify-center m-5">
+          <img alt="logo" height="50" src="images/angular.svg" width="50"/>
+        </div>
+        <p class="m-2 text-2xl">
+          Nouveau compte 👶
+        </p>
+        <p class="w-96 m-2 text-lg">
+          Bienvenue sur la page magique où tout commence ! 🧙‍♂️ Prêt à créer ton compte et à partir à l'aventure ? C’est
+          par ici que la magie opère… mais attention, le mot de passe doit être plus sécurisé qu’un coffre-fort ! 🔐✨
+        </p>
+        <div class="flex gap-1 w-full">
+          <div class="w-1/2">
+            <p-floatlabel class="w-full" variant="on">
+              <input autocomplete="off" class="w-full" id="firstname" pInputText/>
+              <label for="firstname">Prénom</label>
+            </p-floatlabel>
+          </div>
+          <div class="w-1/2">
+            <p-floatlabel class="w-full" variant="on">
+              <input autocomplete="off" class="w-full" id="lastname" pInputText/>
+              <label for="lastname">Nom</label>
+            </p-floatlabel>
+          </div>
+        </div>
+        <div class="flex gap-1 w-full">
+          <div class="w-1/2">
+            <p-floatlabel class="w-full" variant="on">
+              <input autocomplete="off" class="w-full" id="username" pInputText/>
+              <label for="username">Nom d'utilisateur</label>
+            </p-floatlabel>
+          </div>
+          <div class="w-1/2">
+            <p-floatlabel class="w-full" variant="on">
+              <input autocomplete="off" class="w-full" id="login" pInputText/>
+              <label for="login">Mail</label>
+            </p-floatlabel>
+          </div>
+        </div>
+        <div class="flex gap-1 w-full">
+          <div class="w-1/2">
+            <p-floatlabel class="w-full" variant="on">
+              <p-password [toggleMask]="true" id="pwd" inputId="pwd"/>
+              <label for="pwd">Mot de passe</label>
+            </p-floatlabel>
+          </div>
+          <div class="w-1/2">
+            <p-floatlabel class="w-full" variant="on">
+              <p-password [toggleMask]="true" id="confirm-pwd" inputId="confirm-pwd"/>
+              <label for="confirm-pwd">Confirmation</label>
+            </p-floatlabel>
+          </div>
+        </div>
+
+
+        <div class="m-4">
+          <p-button label="Enregistrer"/>
+        </div>
+        <div class="gap-5 flex items-center">
+          Vous avez déjà un compte ? <a href="/login">
+          <p-button [link]="true" label="Connectez vous"/>
+        </a>
+        </div>
+      </div>
+
+
+    </p-card>
+  </div>
+</div>
