@@ -68,16 +68,15 @@ export class HeaderComponent {
         lang === 'fr' ? 'images/royaume-uni.png' : 'images/france.png';
     });
 
-    this.store
-      .select((state) => state.notifications.notificationCount)
-      .subscribe((count) => (this.notificationCount = count ?? 0));
-
-    this.store
-      .select((state) => state.mails.mailCount)
-      .subscribe((count) => {
-        console.log(count);
-        return (this.mailCount = count ?? 0);
-      });
+    // this.store
+    //   .select((state) => state.notifications.notificationCount)
+    //   .subscribe((count) => (this.notificationCount = count ?? 0));
+    //
+    // this.store
+    //   .select((state) => state.mails.mailCount)
+    //   .subscribe((count) => {
+    //     return (this.mailCount = count ?? 0);
+    //   });
   }
 
   openDialogSearch(): void {

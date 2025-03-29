@@ -1,25 +1,22 @@
 <div class="popover--user">
   <div class="popover--user--title text-center mb-4">
-    <div class="popover--user--desc text-lg">John Doe</div>
-    <div class="popover--user--subDesc text-sm">mon.mail&#64;exemple.fr</div>
-    <p-badge badgeSize="small" value="Admin" />
+    <div class="popover--user--desc text-lg">{{ user?.firstname }} {{ user?.lastname }}</div>
+    <div class="popover--user--subDesc text-sm">{{ user?.username }}</div>
+    <div class="popover--user--subDesc text-sm">{{ user?.email }}</div>
+    <!--    <p-badge [value]="user?.profil?.name" badgeSize="small"/>-->
   </div>
   <div class="popover--user--list">
     <div class="popover--user--list--row">
-      <ng-icon name="hugeUser" />
+      <ng-icon name="hugeUser"/>
       <div>Profil</div>
     </div>
     <div class="popover--user--list--row">
-      <ng-icon name="hugeSetting07" />
+      <ng-icon name="hugeSetting07"/>
       <div>Setting</div>
     </div>
-    <div class="popover--user--list--row">
-      <ng-icon name="hugeMail02" />
-      <div>Message</div>
-    </div>
-    <div class="popover--user--list--row">
-      <ng-icon name="hugeLogout03" />
-      <div>Deconnextion</div>
+    <div (click)="logout()" class="popover--user--list--row">
+      <ng-icon name="hugeLogout03"/>
+      <div>Déconnextion</div>
     </div>
   </div>
 </div>

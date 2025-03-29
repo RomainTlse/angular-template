@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { MessageComponent } from './core/ui/components/message/message.component';
@@ -13,7 +13,7 @@ import {
   hugeSearch02,
   hugeSun02,
 } from '@ng-icons/huge-icons';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { MenuComponent } from './core/ui/components/menu/menu.component';
 import { HeaderComponent } from './core/ui/components/header/header.component';
@@ -46,12 +46,25 @@ export type Icon = 'hugeMoon02' | 'hugeSun02';
   providers: [DialogService],
 })
 export class AppComponent implements OnInit {
+  showLogin: boolean = false;
   title = 'angular-template';
+
+  private _router = inject(Router);
 
   constructor(
     private _messageService: MessageService,
     private _loaderService: LoaderService
   ) {
+    this._router.events.subscribe(() => {
+      // Vérifier si la route actuelle est '/login'
+      const urlLogin = [
+        '/login',
+        '/sign-up',
+        '/forgot-password',
+        '/new-password',
+      ];
+      this.showLogin = urlLogin.includes(this._router.url);
+    });
     // this._router.events.subscribe((event: any) => {
     //   if (event instanceof NavigationStart) {
     //

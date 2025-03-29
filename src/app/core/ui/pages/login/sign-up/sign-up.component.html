@@ -3,84 +3,91 @@
     <p-card>
       <div class="flex flex-col gap-3 items-center text-center">
         <div class="w-full flex justify-center m-5">
-          <img alt="logo" height="50" src="images/angular.svg" width="50" />
+          <img alt="logo" height="50" src="images/angular.svg" width="50"/>
         </div>
-        <p class="m-2 text-2xl">Nouveau compte 👶</p>
-        <p class="w-96 m-2 text-lg">
-          Bienvenue sur la page magique où tout commence ! 🧙‍♂️ Prêt à créer ton
-          compte et à partir à l'aventure ? C’est par ici que la magie opère…
-          mais attention, le mot de passe doit être plus sécurisé qu’un
-          coffre-fort ! 🔐✨
-        </p>
-        <div class="flex gap-1 w-full">
-          <div class="w-1/2">
-            <p-floatlabel class="w-full" variant="on">
-              <input
-                autocomplete="off"
-                class="w-full"
-                id="firstname"
-                pInputText
-              />
-              <label for="firstname">Prénom</label>
-            </p-floatlabel>
+        <p class="m-2 text-2xl">{{ 'signUp.title' | translate }}</p>
+        <p class="w-96 m-2 text-lg">{{ 'signUp.description' | translate }}</p>
+        <form [formGroup]="registerForm" class="flex flex-col gap-3 w-full">
+          <div class="flex gap-1 w-full">
+            <div class="w-1/2">
+              <p-floatlabel class="w-full" variant="on">
+                <input
+                  autocomplete="off"
+                  class="w-full"
+                  formControlName="firstname"
+                  id="firstname"
+                  pInputText
+                />
+                <label for="firstname">{{ 'common.firstname' | translate }}</label>
+              </p-floatlabel>
+            </div>
+            <div class="w-1/2">
+              <p-floatlabel class="w-full" variant="on">
+                <input
+                  autocomplete="off"
+                  class="w-full"
+                  formControlName="lastname"
+                  id="lastname"
+                  pInputText
+                />
+                <label for="lastname">{{ 'common.lastname' | translate }}</label>
+              </p-floatlabel>
+            </div>
           </div>
-          <div class="w-1/2">
-            <p-floatlabel class="w-full" variant="on">
-              <input
-                autocomplete="off"
-                class="w-full"
-                id="lastname"
-                pInputText
-              />
-              <label for="lastname">Nom</label>
-            </p-floatlabel>
+          <div class="flex gap-1 w-full">
+            <div class="w-1/2">
+              <p-floatlabel class="w-full" variant="on">
+                <input
+                  autocomplete="off"
+                  class="w-full"
+                  formControlName="username"
+                  id="username"
+                  pInputText
+                />
+                <label for="username">{{ 'common.username' | translate }}</label>
+              </p-floatlabel>
+            </div>
+            <div class="w-1/2">
+              <p-floatlabel class="w-full" variant="on">
+                <input
+                  autocomplete="off"
+                  class="w-full"
+                  formControlName="email"
+                  id="email"
+                  pInputText/>
+                <label for="email">{{ 'common.email' | translate }}</label>
+              </p-floatlabel>
+            </div>
           </div>
-        </div>
-        <div class="flex gap-1 w-full">
-          <div class="w-1/2">
-            <p-floatlabel class="w-full" variant="on">
-              <input
-                autocomplete="off"
-                class="w-full"
-                id="username"
-                pInputText
-              />
-              <label for="username">Nom d'utilisateur</label>
-            </p-floatlabel>
+          <div class="flex gap-1 w-full">
+            <div class="w-1/2">
+              <p-floatlabel class="w-full" variant="on">
+                <p-password [toggleMask]="true" formControlName="password" id="pwd" inputId="pwd"/>
+                <label for="pwd">{{ 'common.password' | translate }}</label>
+              </p-floatlabel>
+            </div>
+            <div class="w-1/2">
+              <p-floatlabel class="w-full" variant="on">
+                <p-password
+                  [toggleMask]="true"
+                  formControlName="confirmPassword"
+                  id="confirmPassword"
+                  inputId="confirmPassword"
+                />
+                <label for="confirmPassword">{{ 'common.confirmation' | translate }}</label>
+              </p-floatlabel>
+            </div>
           </div>
-          <div class="w-1/2">
-            <p-floatlabel class="w-full" variant="on">
-              <input autocomplete="off" class="w-full" id="login" pInputText />
-              <label for="login">Mail</label>
-            </p-floatlabel>
-          </div>
-        </div>
-        <div class="flex gap-1 w-full">
-          <div class="w-1/2">
-            <p-floatlabel class="w-full" variant="on">
-              <p-password [toggleMask]="true" id="pwd" inputId="pwd" />
-              <label for="pwd">Mot de passe</label>
-            </p-floatlabel>
-          </div>
-          <div class="w-1/2">
-            <p-floatlabel class="w-full" variant="on">
-              <p-password
-                [toggleMask]="true"
-                id="confirm-pwd"
-                inputId="confirm-pwd"
-              />
-              <label for="confirm-pwd">Confirmation</label>
-            </p-floatlabel>
-          </div>
-        </div>
 
-        <div class="m-4">
-          <p-button label="Enregistrer" />
-        </div>
+          <div class="m-4">
+            <p-button (click)="register()" [label]="'common.toSave' | translate"/>
+          </div>
+        </form>
+
         <div class="gap-5 flex items-center">
-          Vous avez déjà un compte ?
+          {{ 'signUp.accountCreated' | translate }}
           <a href="/login">
-            <p-button [link]="true" label="Connectez vous" />
+            <p-button [label]="'signUp.login' | translate" [link]="true"/>
           </a>
         </div>
       </div>

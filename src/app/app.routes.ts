@@ -7,11 +7,13 @@ import { LoginComponent } from './core/ui/pages/login/login/login.component';
 import { SignUpComponent } from './core/ui/pages/login/sign-up/sign-up.component';
 import { ForgotPwdComponent } from './core/ui/pages/login/forgot-pwd/forgot-pwd.component';
 import { NewPwdComponent } from './core/ui/pages/login/new-pwd/new-pwd.component';
+import { authGuard } from './core/utils/guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: 'test',
     component: TestComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'notification',

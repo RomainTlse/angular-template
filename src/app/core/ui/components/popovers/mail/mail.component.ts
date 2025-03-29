@@ -6,7 +6,6 @@ import { Mail } from '../../../interfaces/mail';
 import { DatetimeService } from '../../../../utils/services/datetime.service';
 import { Observable } from 'rxjs';
 import { LoadMails } from '../../../stores/mail/mail.actions';
-import { MailState } from '../../../stores/mail/mail.state';
 import { Store } from '@ngxs/store';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -18,17 +17,17 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrl: './mail.component.sass',
 })
 export class MailComponent {
-  mails$: Observable<Mail[]>;
+  mails$?: Observable<Mail[]>;
   mailCount = 0;
 
   protected datetimeService = inject(DatetimeService);
 
   constructor(private store: Store) {
     this.store.dispatch(new LoadMails());
-    this.mails$ = this.store.select(MailState.getAllMails);
-    this.store
-      .select((state) => state.mails.mailCount)
-      .subscribe((count) => (this.mailCount = count ?? 0));
+    // this.mails$ = this.store.select(MailState.getAllMails);
+    // this.store
+    //   .select((state) => state.mails.mailCount)
+    //   .subscribe((count) => (this.mailCount = count ?? 0));
   }
 
   getInitials(name: string) {

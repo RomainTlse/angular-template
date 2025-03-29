@@ -32,24 +32,18 @@ export class HttpRequestService {
   /**
    * GET by id
    * @param route
-   * @param id
    * @param params
    */
-  public getById<T>(
-    route: string,
-    id: number,
-    params?: HttpParams
-  ): Observable<T> {
-    const url = `${route}/${id}`;
+  public getById<T>(route: string, params?: HttpParams): Observable<T> {
     if (params) {
-      return this._http.get<T>(url, {
+      return this._http.get<T>(route, {
         params: params,
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
         }),
       });
     }
-    return this._http.get<T>(url, {
+    return this._http.get<T>(route, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
@@ -85,24 +79,18 @@ export class HttpRequestService {
   /**
    * Delete id datas
    * @param route
-   * @param id
    * @param params
    */
-  public deleteDatas(
-    route: string,
-    id: number,
-    params?: HttpParams
-  ): Observable<unknown> {
-    const url = `${route}/${id}`;
+  public deleteDatas(route: string, params?: HttpParams): Observable<unknown> {
     if (params) {
-      return this._http.delete(url, {
+      return this._http.delete(route, {
         params: params,
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
         }),
       });
     }
-    return this._http.delete(url, {
+    return this._http.delete(route, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
@@ -112,26 +100,23 @@ export class HttpRequestService {
   /**
    * PUT datas
    * @param route
-   * @param id
    * @param datasToPut
    * @param params
    */
   public updateDatas<T>(
     route: string,
-    id: number,
     datasToPut: T,
     params?: HttpParams
   ): Observable<T> {
-    const url = `${route}/${id}`;
     if (params) {
-      return this._http.put<T>(url, datasToPut, {
+      return this._http.put<T>(route, datasToPut, {
         params: params,
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
         }),
       });
     }
-    return this._http.put<T>(url, datasToPut, {
+    return this._http.put<T>(route, datasToPut, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),

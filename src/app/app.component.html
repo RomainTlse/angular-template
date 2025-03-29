@@ -1,21 +1,26 @@
 <app-loader></app-loader>
 <app-message></app-message>
 
-<section class="app--container">
-  <section class="app--sidenav">
-    <app-menu></app-menu>
-  </section>
-
-  <section class="app--content">
-    <section class="app--header">
-      <app-header></app-header>
+@if (showLogin) {
+  <router-outlet/>
+} @else {
+  <section class="app--container">
+    <section class="app--sidenav">
+      <app-menu></app-menu>
     </section>
-    <main class="overflow-auto flex-1">
-      <router-outlet />
-      <section class="app--footer p-6">COPYRIGHT © 2025</section>
-    </main>
+
+    <section class="app--content">
+      <section class="app--header">
+        <app-header></app-header>
+      </section>
+      <main class="overflow-auto flex-1">
+        <router-outlet/>
+        <section class="app--footer p-6">COPYRIGHT © 2025</section>
+      </main>
+    </section>
   </section>
-</section>
+}
+
 
 <!--
   <div class="theme-toggle">

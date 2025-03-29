@@ -3,46 +3,50 @@
     <p-card>
       <div class="flex flex-col gap-3 items-center text-center">
         <div class="w-full flex justify-center m-5">
-          <img alt="logo" height="50" src="images/angular.svg" width="50" />
+          <img alt="logo" height="50" src="images/angular.svg" width="50"/>
         </div>
-        <p class="m-2 text-2xl">Bienvenue 👋</p>
+        <p class="m-2 text-2xl">{{ 'login.title' | translate }}</p>
         <p class="m-2 text-lg w-96">
-          Veuillez vous connecter à votre compte pour commencer l'aventure
+          {{ 'login.description' | translate }}
         </p>
-        <p-floatlabel class="w-full" variant="on">
-          <input autocomplete="off" class="w-full" id="login" pInputText />
-          <label for="login">Mail</label>
-        </p-floatlabel>
-        <p-floatlabel class="w-full" variant="on">
-          <p-password [toggleMask]="true" id="pwd" inputId="pwd" />
-          <label for="pwd">Mot de passe</label>
-        </p-floatlabel>
-        <div class="flex w-full m-2 items-center">
-          <div class="w-1/2">
-            <div class="flex items-center gap-2">
-              <p-checkbox
-                class="flex items-center"
-                inputId="size_small"
-                name="size"
-                value="Small"
-              />
-              <label for="size_small">Rester connecté</label>
+        <form [formGroup]="loginForm" class="flex flex-col gap-3 w-full">
+          <p-floatlabel class="w-full" variant="on">
+            <input autocomplete="off" class="w-full" formControlName="email" id="email" inputId="email" pInputText/>
+            <label for="email">{{ 'common.email' | translate }}</label>
+          </p-floatlabel>
+          <p-floatlabel class="w-full" variant="on">
+            <p-password [toggleMask]="true" formControlName="password" id="password" inputId="password"/>
+            <label for="password">{{ 'login.password' | translate }}</label>
+          </p-floatlabel>
+          <div class="flex w-full m-2 items-center">
+            <div class="w-1/2">
+              <div class="flex items-center gap-2">
+                <p-checkbox
+                  class="flex items-center"
+                  id="stayedConnected"
+                  inputId="stayedConnected"
+                  name="size"
+                  value="Small"
+                />
+                <label for="stayedConnected">{{ 'login.stayedConnected' | translate }}</label>
+              </div>
+            </div>
+            <div class="w-1/2 text-right">
+              <a href="/forgot-password">
+                <p-button [label]="'login.forgottenPassword' | translate" [link]="true"/>
+              </a>
             </div>
           </div>
-          <div class="w-1/2 text-right">
-            <a href="/forgot-password">
-              <p-button [link]="true" label="Mot de passe oublié" />
-            </a>
+          <div class="m-4">
+            <p-button (click)="login()" [label]="'common.login' | translate"/>
           </div>
-        </div>
-        <div class="m-4">
-          <p-button label="Connexion" />
-        </div>
+        </form>
+
 
         <div class="gap-5 flex items-center">
-          Vous n'avez pas encore de compte ?
-          <a href="/sign-up">
-            <p-button [link]="true" label="Créez un compte" />
+          {{ 'login.noAccount' | translate }}
+          <a href="/sign-up">createAccount
+            <p-button [label]="'login.createAccount' | translate" [link]="true"/>
           </a>
         </div>
       </div>

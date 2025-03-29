@@ -3,12 +3,10 @@ import { Observable } from 'rxjs';
 import { Notification } from '../../interfaces/notification';
 import {
   AddNotification,
-  LoadNotifications,
   RemoveNotificationAction,
   UpdateNotificationAction,
 } from '../../stores/notification/notification.actions';
 import { AsyncPipe, NgClass } from '@angular/common';
-import { NotificationState } from '../../stores/notification/notification.state';
 import { Store } from '@ngxs/store';
 import { Badge } from 'primeng/badge';
 
@@ -19,17 +17,17 @@ import { Badge } from 'primeng/badge';
   styleUrl: './notification.component.sass',
 })
 export class NotificationComponent {
-  notifications$: Observable<Notification[]>;
+  notifications$?: Observable<Notification[]>;
   notificationCount = 0;
 
   constructor(private store: Store) {
-    this.store.dispatch(new LoadNotifications());
-    this.notifications$ = this.store.select(
-      NotificationState.getAllNotifications
-    );
-    this.store
-      .select((state) => state.notifications.notificationCount)
-      .subscribe((count) => (this.notificationCount = count ?? 0));
+    // this.store.dispatch(new LoadNotifications());
+    // this.notifications$ = this.store.select(
+    //   NotificationState.getAllNotifications
+    // );
+    // this.store
+    //   .select((state) => state.notifications.notificationCount)
+    //   .subscribe((count) => (this.notificationCount = count ?? 0));
   }
 
   addNotification() {

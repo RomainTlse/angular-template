@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { Card } from 'primeng/card';
+import { UserService } from '../modules/services/user.service';
 
 @Component({
   selector: 'app-test',
@@ -8,4 +9,10 @@ import { Card } from 'primeng/card';
   templateUrl: './test.component.html',
   styleUrl: './test.component.sass',
 })
-export class TestComponent {}
+export class TestComponent {
+  private _userService = inject(UserService);
+
+  ngOnInit() {
+    this._userService.getUsers().subscribe();
+  }
+}

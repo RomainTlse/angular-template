@@ -15,7 +15,7 @@ export class MailService {
   }
 
   getMailById(id: number): Observable<Mail> {
-    return this._httpRequestService.getById(this._apiUrl, id);
+    return this._httpRequestService.getById(`${this._apiUrl}/${id}`);
   }
 
   addMail(post: Mail): Observable<Mail> {
@@ -23,10 +23,10 @@ export class MailService {
   }
 
   updateMail(id: number, post: Mail): Observable<Mail> {
-    return this._httpRequestService.updateDatas(this._apiUrl, id, post);
+    return this._httpRequestService.updateDatas(`${this._apiUrl}/${id}`, post);
   }
 
   deleteMail(id: number): Observable<unknown> {
-    return this._httpRequestService.deleteDatas(this._apiUrl, id);
+    return this._httpRequestService.deleteDatas(`${this._apiUrl}/${id}`);
   }
 }

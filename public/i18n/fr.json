@@ -1,4 +1,14 @@
 {
+  "common": {
+    "confirmation": "Confirmation",
+    "email": "Email",
+    "firstname": "Prénom",
+    "lastname": "Nom",
+    "login": "Connexion",
+    "password": "Mot de passe",
+    "toSave": "Enregistrer",
+    "username": "Nom d'utilisateur"
+  },
   "error": {
     "notFound": {
       "title": "Oups, page introuvable !",
@@ -10,6 +20,11 @@
     },
     "returnHome": "Retour à l'accueil"
   },
+  "forgotPassword": {
+    "description": "Tu veux modifier ton mot de passe ? Pas de souci ! \uD83C\uDFAF Il te suffit de saisir ton adresse e-mail et on t’enverra e-mail pour que tu puisses le réinitialiser ! ✨\uD83D\uDCE9",
+    "sendMail": "Envoyer le mail",
+    "title": "Mot de passe oublié \uD83D\uDD12"
+  },
   "header": {
     "displayAllMails": "Afficher tous les mails",
     "displayAllNotifications": "Afficher toutes les notifications",
@@ -19,5 +34,23 @@
     "shortcuts": "Raccourcies",
     "search": "Recherche"
   },
-  "hello": "Bonjour"
+  "hello": "Bonjour",
+  "login": {
+    "createAccount": "Créez un compte",
+    "description": "Veuillez vous connecter à votre compte pour commencer l'aventure.",
+    "forgottenPassword": "Mot de passe oublié",
+    "noAccount": "Vous n'avez pas de compte ?",
+    "stayedConnected": "Resté connecté",
+    "title": "Bienvenue \uD83D\uDC4B"
+  },
+  "newPassword": {
+    "description": "Tu es sur le point de changer de mot de passe ! \uD83D\uDD11 Choisis-en un nouveau, solide comme un roc, pour protéger ton royaume numérique. Une fois cela fait, tu seras prêt à repartir du bon pied ! \uD83D\uDE80",
+    "title": "Modification du mot de passe \uD83D\uDD12"
+  },
+  "signUp": {
+    "accountCreated": "Vous avez déjà un compte ?",
+    "description": "Bienvenue sur la page magique où tout commence ! \uD83E\uDDD9\u200D♂\uFE0F Prêt à créer ton compte et à partir à l'aventure ? C’est par ici que la magie opère… mais attention, le mot de passe doit être plus sécurisé qu’un coffre-fort ! \uD83D\uDD10✨",
+    "login": "Connectez-vous",
+    "title": "Nouveau compte \uD83D\uDC76"
+  }
 }

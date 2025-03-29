@@ -15,7 +15,7 @@ export class MenuService {
   }
 
   getMenuById(id: number): Observable<Menu> {
-    return this._httpRequestService.getById(this._apiUrl, id);
+    return this._httpRequestService.getById(`${this._apiUrl}/${id}`);
   }
 
   addMenu(post: Menu): Observable<Menu> {
@@ -23,10 +23,10 @@ export class MenuService {
   }
 
   updateMenu(id: number, post: Menu): Observable<Menu> {
-    return this._httpRequestService.updateDatas(this._apiUrl, id, post);
+    return this._httpRequestService.updateDatas(`${this._apiUrl}/${id}`, post);
   }
 
   deleteMenu(id: number): Observable<unknown> {
-    return this._httpRequestService.deleteDatas(this._apiUrl, id);
+    return this._httpRequestService.deleteDatas(`${this._apiUrl}/${id}`);
   }
 }

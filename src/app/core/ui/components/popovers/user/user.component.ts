@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { Badge } from 'primeng/badge';
+import { Component, inject } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   hugeLogout03,
@@ -7,10 +6,12 @@ import {
   hugeSetting07,
   hugeUser,
 } from '@ng-icons/huge-icons';
+import { AuthService } from '../../../../utils/services/auth.service';
+import { User } from '../../../../../modules/interfaces/user';
 
 @Component({
   selector: 'app-user',
-  imports: [Badge, NgIcon],
+  imports: [NgIcon],
   templateUrl: './user.component.html',
   styleUrl: './user.component.sass',
   viewProviders: [
@@ -22,4 +23,15 @@ import {
     }),
   ],
 })
-export class UserComponent {}
+export class UserComponent {
+  user: User | null;
+  private _authService = inject(AuthService);
+
+  constructor() {
+    this.user = this._authService.currentUser;
+  }
+
+  logout(): void {
+    this._authService.logout();
+  }
+}
